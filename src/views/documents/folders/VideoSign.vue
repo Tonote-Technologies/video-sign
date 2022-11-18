@@ -14,7 +14,7 @@
                 </div>
               </div>
               <div>
-                <button class="btn btn-sm btn-success">Join now</button>
+                <button class="btn btn-sm btn-primary">Join now</button>
               </div>
             </div>
           </div>
@@ -118,6 +118,11 @@
                       </td>
 
                       <td style="">
+                        <router-link
+                          :to="{ path: 'waiting-page/' + result.id }"
+                          class="btn btn-primary btn-sm"
+                          >Join</router-link
+                        >
                         <div class="dropdown">
                           <a
                             class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
@@ -157,7 +162,7 @@
                                 class="dropdown-item"
                                 @click="
                                   getDocument({
-                                    id: '24aee73e-0581-407f-b429-d64d048295a3',
+                                    id: result.id,
                                   })
                                 "
                               >

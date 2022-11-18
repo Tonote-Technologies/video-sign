@@ -12,13 +12,10 @@
             your recording</P
           >
           <div>
-            <a
-              @click="download"
-              href="#"
-              id="download"
-              class="btn btn-sm btn-primary"
-              >Download</a
-            >
+            <Icon icon="material-symbols:slow-motion-video" />
+            <a @click="download" href="#" id="download" class="text-primary">{{
+              filename
+            }}</a>
           </div>
         </div>
       </div>
@@ -32,6 +29,7 @@ import { useRouter } from "vue-router";
 
 import { useGetters } from "vuex-composition-helpers/dist";
 import moment from "moment";
+import { Icon } from "@iconify/vue";
 // const { userDocument } = useGetters(["userDocument"]);
 
 const dateTime = () => {
@@ -45,8 +43,8 @@ const { userDocument } = useGetters({
 const route = useRouter();
 const uri = ref("");
 const date = dateTime();
+const filename = userDocument.value.title + "_" + date;
 const download = () => {
-  const filename = userDocument.value.title + "_" + date;
   let downloadLink = document.getElementById("download");
   //   downloadLink.href = ;
   downloadLink.download = `${filename || "recording"}.webm`;
