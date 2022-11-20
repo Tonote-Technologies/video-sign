@@ -12,15 +12,20 @@ const DocumentDashboard = () =>
   import(
     /* webpackChunkName: "document" */ "@/views/documents/DocumentDashboard.vue"
   );
-
+const DocumentCertificate = () =>
+  import(
+    /* webpackChunkName: "document-certificate" */ "@/views/documents/DocumentCertificate.vue"
+  );
 const DocumentUpload = () =>
   import(
     /* webpackChunkName: "upload-document" */ "@/views/documents/DocumentUpload.vue"
   );
 const VideoScheduleView = () =>
   import(
-    /* webpackChunkName: "upload-document" */ "@/views/video/VideoScheduleView.vue"
+    /* webpackChunkName: "video-schedule" */ "@/views/video/VideoScheduleView.vue"
   );
+
+
 
 const DocumentPrepare = () =>
   import(
@@ -194,7 +199,7 @@ const routes = [
       // waiting page
       {
         path: "waiting-page/:session_id",
-        name: "waiting-page",
+        name: "document.waiting-page",
         component: WaitingPage,
         meta: {
           title: "Video Signing Waiting Page | ToNote",
@@ -249,8 +254,27 @@ const routes = [
           ],
         },
       },
+      {
+        path: "certificate",
+        name: "certificate",
+        component: DocumentCertificate,
+        meta: {
+          title: " Document Certificate | ToNote",
+          requiresAuth: true,
+          metaTags: [
+            {
+              name: "description",
+              content: "The document certificate page of ToNote.",
+            },
+            {
+              property: "og:description",
+              content: "The document certificate page of ToNote.",
+            },
+          ],
+        },
+      },
       // ScreenRecording
-      
+
       {
         path: "screenrecorder",
         name: "document.screenrecorder",

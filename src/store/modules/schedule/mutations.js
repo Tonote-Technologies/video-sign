@@ -11,33 +11,37 @@ export const SET_SCHEDULE_STATES = (state, payload) => {
 };
 
 export const SET_SCHEDULE_DETAILS = (state, payload) => {
-  state.schedule_details.id = payload.id;
-  state.schedule_details.comment = payload.comment;
-  state.schedule_details.customer.id = payload.customer.id;
-  state.schedule_details.customer.first_name = payload.customer.first_name;
-  state.schedule_details.customer.email = payload.customer.email;
-  state.schedule_details.customer.last_name = payload.customer.last_name;
-  state.schedule_details.customer_id = payload.customer_id;
-  state.schedule_details.document_id = payload.document.id;
-  state.schedule_details.participants = payload.document.participants;
-  state.schedule_details.participants_count =
-    payload.document.participants_count;
-  state.schedule_details.tools_count = payload.document.tools_count;
-  state.schedule_details.uploads_count = payload.document.uploads_count;
-  state.schedule_details.end_session = payload.end_session;
-  state.schedule_details.date = payload.date;
-  state.schedule_details.description = payload.description;
-  state.schedule_details.end_time = payload.end_time;
-  state.schedule_details.immediate = payload.immediate;
-  state.schedule_details.meeting_link = payload.meeting_link;
-  state.schedule_details.notary = payload.notary;
-  state.schedule_details.request_type = payload.request_type;
-  state.schedule_details.session = payload.session;
-  state.schedule_details.start_session = payload.start_session;
-  state.schedule_details.start_time = payload.start_time;
-  state.schedule_details.status = payload.status;
-  state.schedule_details.title = payload.title;
-  state.schedule_details.token = payload.token;
+  console.log(payload)
+  if (payload == undefined) {
+    console.log("Error something went wrong")
+  } else {
+    state.schedule_details.id = payload.id;
+    state.schedule_details.comment = payload.comment;
+    state.schedule_details.customer.id = payload.customer.id;
+    state.schedule_details.customer.first_name = payload.customer.first_name;
+    state.schedule_details.customer.email = payload.customer.email;
+    state.schedule_details.customer.last_name = payload.customer.last_name;
+    state.schedule_details.customer_id = payload.customer_id;
+    state.schedule_details.document_id = payload.document.id;
+    state.schedule_details.participants = payload.document.participants;
+    state.schedule_details.participants_count = payload.document.participants_count;
+    state.schedule_details.tools_count = payload.document.tools_count;
+    state.schedule_details.uploads_count = payload.document.uploads_count;
+    state.schedule_details.end_session = payload.end_session;
+    state.schedule_details.date = payload.date;
+    state.schedule_details.description = payload.description;
+    state.schedule_details.end_time = payload.end_time;
+    state.schedule_details.immediate = payload.immediate;
+    state.schedule_details.meeting_link = payload.meeting_link;
+    state.schedule_details.notary = payload.notary;
+    state.schedule_details.request_type = payload.request_type;
+    state.schedule_details.session = payload.session;
+    state.schedule_details.start_session = payload.start_session;
+    state.schedule_details.start_time = payload.start_time;
+    state.schedule_details.status = payload.status;
+    state.schedule_details.title = payload.title;
+    state.schedule_details.token = payload.token;
+  }
 };
 
 // schedule transaction
@@ -115,11 +119,11 @@ export const SET_AGORA_DETAILS = (state, payload) => {
 
 export const FETCH_AFFIDAVIT_REQUEST = (state, payload) => {
   state.affidavits = payload;
-}; 
+};
 
 export const FETCH_NOTARY_REQUEST = (state, payload) => {
   state.notary_request = payload;
-}; 
+};
 
 export const FETCH_VIDEO_SIGN_REQUEST = (state, payload) => {
   state.video_sign = payload;

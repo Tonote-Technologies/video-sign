@@ -19,7 +19,7 @@ export const getUserDocuments = ({ commit }, token) => {
 export const getSessionRecords = ({ commit }, token) => {
   Document.showSessionRecord(token)
     .then((response) => {
-      console.log("My Data:",response.data);
+      // console.log("My Data:",response.data);
       commit("SET_SESSION_RECORD", response.data);
     })
     .catch((error) => {

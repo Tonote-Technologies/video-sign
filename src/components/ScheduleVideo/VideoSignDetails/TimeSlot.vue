@@ -44,6 +44,7 @@
                 <Datepicker
                   v-model="date"
                   @selected="dateSelected"
+                  required
                   calendar-button-icon=""
                   :calendar-button="false"
                   format="yyyy-MM-dd"
@@ -64,6 +65,7 @@
                 <label class="form-label">Time</label>
                 <select v-model="time" class="form-control">
                   <option
+                    required
                     v-for="(time, index) in time_slots"
                     :key="time + index"
                     :value="time"
@@ -315,6 +317,8 @@ import { type } from "@/utils/constants";
 import PreLoader from "@/components/Loader/PreLoader.vue";
 import ConfirmationComponent from "@/components/ScheduleVideo/VideoSignDetails/ConfirmationComponent.vue";
 import router from "@/router/router";
+import { useToast } from "vue-toast-notification";
+const toast = useToast();
 
 AOS.init();
 export default {
@@ -410,6 +414,7 @@ export default {
       //
       // store
       // if (this.type == "type.Upload") {
+      const today = moment().format("YYYY-MM-DD");
       let UploadFormData = {
         notary_id: this.selectedNotary,
         title: this.schedule_formdata.title,
@@ -429,7 +434,7 @@ export default {
         date:
           this.schedule_formdata.schedule_type === type.Immediate
             ? moment().format("YYYY-MM-DD")
-            : "2022-10-20",
+            : today,
         // this.schedule_formdata.date,
         set_reminder_in_minutes: "15",
         start_time:
@@ -453,11 +458,25 @@ export default {
               });
             } else {
               // redirect to request page
-              router.push({ name: "" });
+              router.push({
+                name: "Document",
+                query: { page: "video-sign" },
+              });
             }
           },
           (error) => {
             console.log(error);
+            toast.error(`${error.response.data.data.error}`, {
+              timeout: 5000,
+              position: "top-right",
+            });
+            // if (error.response.status == 422) {
+            //   toast.error(`${error.response.data.data.error}`, {
+            //     timeout: 5000,
+            //     position: "top-right",
+            //   });
+            //   // console.log("The start time field is required when immediate is false.")
+            // }
           },
         );
     },

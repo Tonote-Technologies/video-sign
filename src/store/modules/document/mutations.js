@@ -36,6 +36,6 @@ export const SET_MESSAGE = (state, msg) => {
 };
 
 export const SET_SESSION_RECORD = (state, doc) => {
-  console.log("Mutation:", doc)
+  // console.log("Mutation:", doc)
   state.sessionRecord = doc;
 };
