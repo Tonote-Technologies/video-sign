@@ -69,7 +69,7 @@
             <div class="card-body d-flex justify-content-between">
               <div>
                 <div class="text-dark h5">Video Sign</div>
-                <h5 class="fw-bold">2</h5>
+                <h5 class="fw-bold">{{ tableRecord.length }}</h5>
               </div>
 
               <div class="">
@@ -229,7 +229,7 @@ import VideoSign from "@/views/documents/folders/VideoSign";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
-import { useGetters } from "vuex-composition-helpers/dist";
+import { useActions, useGetters } from "vuex-composition-helpers/dist";
 
 const uri = ref("");
 const route = useRouter();
@@ -239,24 +239,30 @@ const isNotaryActive = ref(false);
 const { affidavits } = useGetters({
   affidavits: "schedule/affidavits",
 });
+const { token, allSessionRecord } = useGetters({
+  token: "auth/token",
+  allSessionRecord: "document/allSessionRecord",
+});
 
+const { getSessionRecords } = useActions({
+  getSessionRecords: "document/getSessionRecords",
+});
+
+const tableRecord = ref([]);
 onMounted(() => {
+  allSessionRecord.value.filter((respond) => {
+    if (respond.entry_point === "Video") {
+      tableRecord.value.push(respond);
+    }
+  });
+  getSessionRecords(token.value);
+
   uri.value = route.currentRoute.value.query;
 
   isAffidavitActive.value = uri.value.page === undefined ? true : false;
 
   isNotaryActive.value = uri.value.page === "notary-request" ? true : false;
   isActive.value = uri.value.page === "video-sign" ? true : false;
-
-  console.log(uri.value.page);
-
-  // if (uri.value.page === "video-sign") {
-  //   isActive.value = true;
-  // } else if (uri.value.page === "notary-request") {
-  //   isNotaryActive.value = true;
-  // } else {
-  //   isActive.value = isNotaryActive.value = false;
-  // }
 });
 </script>
 

@@ -8,4 +8,5 @@ export default {
   isOpenModal: false,
   message: null,
   sessionRecord: [],
+  sessionRecordToday: [],
 };

@@ -30,6 +30,20 @@ export const getSessionRecords = ({ commit }, token) => {
     });
 };
 
+export const getSessionRecordToday = ({ commit }, token) => {
+  Document.showSessionRecordToday(token)
+    .then((response) => {
+      // console.log("My Data:",response.data);
+      commit("SET_SESSION_RECORD_TODAY", response.data);
+    })
+    .catch((error) => {
+      if (error.response.status === 401 || error.response.status == 422) {
+        commit("SET_TOKEN", null);
+        router.push({ name: "Login" });
+      }
+    });
+};
+
 
 export const getUserDocumentByStatus = ({ commit }, formData) => {
   Document.allDocumentByStatus(formData)

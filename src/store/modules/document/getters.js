@@ -31,3 +31,7 @@ export const allSessionRecord = (state) => {
   return state.sessionRecord;
 };
 
+export const allSessionRecordToday = (state) => {
+  return state.sessionRecordToday;
+};
+

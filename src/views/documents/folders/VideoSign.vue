@@ -120,17 +120,19 @@
                       <span
                         class="badge rounded-pill me-1"
                         :class="[
-                          result.status == 'pending'
-                            ? 'bg-warning'
-                            : 'bg-success',
+                          result.status == 'New' ? 'bg-warning' : 'bg-success',
                         ]"
                       >
-                        {{ result.status }}
+                        {{ result.status == "New" ? "Pending" : result.status }}
                       </span>
                     </td>
                     <td>
                       <template
-                        v-if="result.immediate == true && result.date == today"
+                        v-if="
+                          result.immediate === true &&
+                          result.date === today &&
+                          result.end_session === false
+                        "
                       >
                         <router-link
                           :to="{
@@ -141,6 +143,7 @@
                           >Join</router-link
                         >
                       </template>
+                      <!-- <template v-else> Missed Session </template> -->
                     </td>
                     <td style="">
                       <div class="dropdown">
@@ -301,20 +304,17 @@ const dateTime = (date) => {
   return moment(date).format("Do MMM YYYY · h:mm a");
 };
 
-// const timeFormat = (time) => {
-//   return moment(time).format("h:mm a");
-// };
-
 import { useActions, useGetters } from "vuex-composition-helpers/dist";
 
-const { token, allSessionRecord } = useGetters({
+const { token, allSessionRecord, allSessionRecordToday } = useGetters({
   token: "auth/token",
   allSessionRecord: "document/allSessionRecord",
+  allSessionRecordToday: "document/allSessionRecordToday",
 });
 
-const { getUserDocuments, getSessionRecords } = useActions({
-  getUserDocuments: "document/getUserDocuments",
+const { getSessionRecords, getSessionRecordToday } = useActions({
   getSessionRecords: "document/getSessionRecords",
+  getSessionRecordToday: "document/getSessionRecordToday",
 });
 
 const data = ref("");
@@ -332,16 +332,14 @@ onMounted(() => {
       tableRecord.value.push(respond);
     }
   });
-  getUserDocuments(token.value);
   getSessionRecords(token.value);
+  getSessionRecordToday(token.value);
 });
 
 const nextMeeting = ref([]);
 
 onUpdated(() => {
-  const rec = allSessionRecord.value;
-
-  rec.filter((res) => {
+  allSessionRecordToday.value.filter((res) => {
     if (
       res.entry_point === "Video" &&
       res.immediate == false &&
@@ -361,6 +359,7 @@ onUpdated(() => {
       if (allSessionRecord.value.length > 0) {
         $("#allrecord").DataTable({
           columnDefs: [{ orderable: false, targets: [0, 6] }],
+          // order: [[3, "desc"]],
           aaSorting: [],
           lengthMenu: [
             [5, 10, 25, 50, -1],

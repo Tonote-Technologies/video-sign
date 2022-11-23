@@ -57,13 +57,10 @@
 
           <div class="recorder-arrow d-flex align-items-center">
             <button class="btn btn-sm btn-primary waves-effect" @click="done">
-              Complete
+              Complete Session
             </button>
           </div>
         </div>
-        <!-- <div class="recorder-arrow">
-          <button class="btn btn-sm  me-1">Arrow</button>
-        </div> -->
       </div>
     </div>
   </div>
@@ -153,10 +150,6 @@ const doneModal = ref(false);
 const mimeType = "video/webm";
 const recordStream = [];
 const confirmModal = ref(false);
-// const redirectToUserDashboard = ref("");
-// const { token } = useGetters({
-//   token: "auth/token",
-// });
 
 const startRecord = () => {
   $(".record").prop("disabled", true).hide();
@@ -244,7 +237,6 @@ const confirmRecording = async () => {
     audio: { echoCancellation: true },
   });
 
-  // if (window.confirm("Record audio with screen?")) {
   const audioContext = new AudioContext();
 
   const voiceStream = await navigator.mediaDevices.getUserMedia({
@@ -267,10 +259,6 @@ const confirmRecording = async () => {
   ];
   stream = new MediaStream(tracks);
   handleRecord({ stream, mimeType });
-  // } else {
-  //   stream = displayStream;
-  //   handleRecord({ stream, mimeType });
-  // }
 };
 const pauseResume = (e) => {
   const mRecorder = recordStream[0];
@@ -290,18 +278,6 @@ const pauseResume = (e) => {
 };
 
 // Timer
-
-// startBtn.addEventListener("click", function () {
-//   timer = true;
-//   stopWatch();
-// });
-
-// stopBtn.addEventListener("click", function () {
-//   timer = false;
-// });
-
-// resetBtn.addEventListener("click", function () {});
-
 function resetTime() {
   timer = false;
   hour = 0;
@@ -367,7 +343,6 @@ const done = () => {
   doneModal.value = true;
 };
 const confirmEdit = () => {
-  // const mRecorder = recordStream[0];
   console.log(recordStream.length);
   if (recordStream.length === 0) {
     route.push({

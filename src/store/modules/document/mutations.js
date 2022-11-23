@@ -39,3 +39,7 @@ export const SET_SESSION_RECORD = (state, doc) => {
   // console.log("Mutation:", doc)
   state.sessionRecord = doc;
 };
+
+export const SET_SESSION_RECORD_TODAY = (state, doc) => {
+  state.sessionRecordToday = doc;
+};

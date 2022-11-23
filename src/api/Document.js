@@ -13,6 +13,8 @@ const DOCUMENT_PARTICIPANTS_SEND_MAIL = "document-participants-send-email";
 
 const DOCUMENT_RESOURCE_TOOLS = "document-resource-tools";
 const REQUEST_VIRTUAL_SESSION = "request-virtual-session";
+const REQUEST_VIRTUAL_SESSION_TODAY = "request-virtual-session-today";
+
 
 
 export default {
@@ -86,6 +88,10 @@ export default {
     // return Api.get(`${REQUEST_VIRTUAL_SESSION}`, token);
     return Api.get(`${REQUEST_VIRTUAL_SESSION}?entry_point=Video`, token);
     // return Api.get(`${END_POINT}?entry_point=Video`, token);
+  },
+
+  showSessionRecordToday(token) {
+    return Api.get(`${REQUEST_VIRTUAL_SESSION_TODAY}?entry_point=Video`, token);
   },
 };
 
