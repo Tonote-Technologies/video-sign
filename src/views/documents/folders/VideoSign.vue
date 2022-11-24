@@ -122,10 +122,12 @@
                       <span
                         class="badge rounded-pill me-1"
                         :class="[
-                          result.status == 'New' ? 'bg-warning' : 'bg-success',
+                          result.status == 'Pending'
+                            ? 'bg-warning'
+                            : 'bg-success',
                         ]"
                       >
-                        {{ result.status == "New" ? "Pending" : result.status }}
+                        {{ result.status }}
                       </span>
                     </td>
                     <td>
@@ -328,11 +330,8 @@ const openModal = () => {
   questionModal.value = true;
 };
 const tableRecord = ref([]);
-onMounted(() => {
-  getSessionRecords(token.value);
-  getSessionRecordToday(token.value);
 
-  // All Pending Scheduled Meeting today
+const fetchAllRecord = () => {
   allSessionRecordToday.value.filter((res) => {
     if (res.entry_point === "Video" && res.immediate == false) {
       nextMeeting.value.push(res);
@@ -340,19 +339,28 @@ onMounted(() => {
       nextMeeting.value = [];
     }
   });
+};
 
-  // All Meetings over time
+const fetchTodaysRecord = () => {
   allSessionRecord.value.filter((respond) => {
     if (respond.entry_point === "Video") {
       tableRecord.value.push(respond);
     }
   });
+};
+onMounted(() => {
+  getSessionRecords(token.value);
+  getSessionRecordToday(token.value);
+
+  fetchTodaysRecord();
+  fetchAllRecord();
 });
 
 const nextMeeting = ref([]);
 
 onUpdated(() => {
-  // theId.value = dashboard.value.status;c
+  fetchTodaysRecord();
+  // theId.value = dashboard.value.status;
   setTimeout(() => {
     if ($.fn.dataTable.isDataTable("#allrecord")) {
       $("#allrecord").DataTable();

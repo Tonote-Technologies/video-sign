@@ -420,7 +420,6 @@ export default {
         title: this.schedule_formdata.title,
         description: !this.description ? "description" : this.description,
         type: type.Upload,
-        entry_point: "Video",
         files: this.schedule_formdata.documentFile,
         immediate:
           this.schedule_formdata.schedule_type == type.Immediate ? true : false,
@@ -453,7 +452,7 @@ export default {
             if (this.schedule_details.immediate) {
               // redirect to waiting room
               router.push({
-                name: "waiting-page",
+                name: "document.waiting-page",
                 params: { session_id: this.schedule_details.id },
               });
             } else {
