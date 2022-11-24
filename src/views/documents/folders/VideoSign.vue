@@ -4,7 +4,7 @@
       <div class="col col-12">
         <div class="card">
           <div class="card-body">
-            <h3 class="">Next Meeting</h3>
+            <h3 class="">Next Scheduled Meeting</h3>
             <!-- <p>You have no scheduled meeting for today</p> -->
             <!-- {{ nextMeeting.length }} -->
             <template v-if="nextMeeting.length > 0">
@@ -78,7 +78,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(result, index) in allSessionRecord" :key="index">
+                  <tr v-for="(result, index) in tableRecord" :key="index">
                     <!-- <template v-if="result.entry_point === 'Video'"> -->
                     <td>{{ ++index }}</td>
 
@@ -327,33 +327,31 @@ const questionModal = ref(false);
 const openModal = () => {
   questionModal.value = true;
 };
-// const tableRecord = ref([]);
+const tableRecord = ref([]);
 onMounted(() => {
-  // console.log(allSessionRecord.value);
-  // allSessionRecord.value.filter((respond) => {
-  //   if (respond.entry_point === "Video") {
-  //     tableRecord.value.push(respond);
-  //   }
-  // });
   getSessionRecords(token.value);
   getSessionRecordToday(token.value);
-});
 
-const nextMeeting = ref([]);
-
-onUpdated(() => {
+  // All Pending Scheduled Meeting today
   allSessionRecordToday.value.filter((res) => {
-    if (
-      res.entry_point === "Video" &&
-      res.immediate == false &&
-      res.date === today
-    ) {
+    if (res.entry_point === "Video" && res.immediate == false) {
       nextMeeting.value.push(res);
     } else {
       nextMeeting.value = [];
     }
   });
 
+  // All Meetings over time
+  allSessionRecord.value.filter((respond) => {
+    if (respond.entry_point === "Video") {
+      tableRecord.value.push(respond);
+    }
+  });
+});
+
+const nextMeeting = ref([]);
+
+onUpdated(() => {
   // theId.value = dashboard.value.status;c
   setTimeout(() => {
     if ($.fn.dataTable.isDataTable("#allrecord")) {

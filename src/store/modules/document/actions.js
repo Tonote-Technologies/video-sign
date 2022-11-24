@@ -19,6 +19,7 @@ export const getUserDocuments = ({ commit }, token) => {
 export const getSessionRecords = ({ commit }, token) => {
   Document.showSessionRecord(token)
     .then((response) => {
+      // console.log("All Data:", response.data.data);
       commit("SET_SESSION_RECORD", response.data.data);
     })
     .catch((error) => {
@@ -32,7 +33,7 @@ export const getSessionRecords = ({ commit }, token) => {
 export const getSessionRecordToday = ({ commit }, token) => {
   Document.showSessionRecordToday(token)
     .then((response) => {
-      console.log("Data Today:", response.data);
+      // console.log("All Today:", response.data);
       commit("SET_SESSION_RECORD_TODAY", response.data);
     })
     .catch((error) => {
