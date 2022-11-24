@@ -4,7 +4,7 @@
       <div class="col col-12">
         <div class="card">
           <div class="card-body">
-            <h3 class="">Next Scheduled Meeting</h3>
+            <h3 class="">Next Scheduled Meeting Today</h3>
             <!-- <p>You have no scheduled meeting for today</p> -->
             <!-- {{ nextMeeting.length }} -->
             <template v-if="nextMeeting.length > 0">

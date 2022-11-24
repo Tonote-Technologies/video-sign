@@ -421,6 +421,7 @@ export default {
         description: !this.description ? "description" : this.description,
         type: type.Upload,
         files: this.schedule_formdata.documentFile,
+        entry_point: "Video",
         immediate:
           this.schedule_formdata.schedule_type == type.Immediate ? true : false,
         request_type: type.Upload,
