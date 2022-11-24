@@ -19,8 +19,7 @@ export const getUserDocuments = ({ commit }, token) => {
 export const getSessionRecords = ({ commit }, token) => {
   Document.showSessionRecord(token)
     .then((response) => {
-      // console.log("My Data:",response.data);
-      commit("SET_SESSION_RECORD", response.data);
+      commit("SET_SESSION_RECORD", response.data.data);
     })
     .catch((error) => {
       if (error.response.status === 401 || error.response.status == 422) {
@@ -33,7 +32,7 @@ export const getSessionRecords = ({ commit }, token) => {
 export const getSessionRecordToday = ({ commit }, token) => {
   Document.showSessionRecordToday(token)
     .then((response) => {
-      // console.log("My Data:",response.data);
+      console.log("Data Today:", response.data);
       commit("SET_SESSION_RECORD_TODAY", response.data);
     })
     .catch((error) => {

@@ -29,7 +29,9 @@
                 </div>
               </template>
             </template>
-            <template v-else> You have no pending meeting today </template>
+            <template v-else>
+              You have no pending scheduled meeting today
+            </template>
           </div>
         </div>
       </div>
@@ -76,7 +78,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(result, index) in tableRecord" :key="index">
+                  <tr v-for="(result, index) in allSessionRecord" :key="index">
                     <!-- <template v-if="result.entry_point === 'Video'"> -->
                     <td>{{ ++index }}</td>
 
@@ -325,13 +327,14 @@ const questionModal = ref(false);
 const openModal = () => {
   questionModal.value = true;
 };
-const tableRecord = ref([]);
+// const tableRecord = ref([]);
 onMounted(() => {
-  allSessionRecord.value.filter((respond) => {
-    if (respond.entry_point === "Video") {
-      tableRecord.value.push(respond);
-    }
-  });
+  // console.log(allSessionRecord.value);
+  // allSessionRecord.value.filter((respond) => {
+  //   if (respond.entry_point === "Video") {
+  //     tableRecord.value.push(respond);
+  //   }
+  // });
   getSessionRecords(token.value);
   getSessionRecordToday(token.value);
 });
