@@ -236,7 +236,8 @@ const route = useRouter();
 const uri = ref("");
 const date = dateTime();
 const documentTitle = userDocument.value.title;
-const videofilename = userDocument.value.title + "_" + date;
+const videofilename =
+  "Recorded video for " + userDocument.value.title + "_" + date;
 const download = () => {
   let downloadLink = document.getElementById("download");
   //   downloadLink.href = ;
