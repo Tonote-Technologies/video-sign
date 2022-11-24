@@ -1,8 +1,22 @@
 <template>
   <div class="container-fluid">
     <div class="row d-flex justify-content-center">
-      <div class="col-lg-8 col-sm-12s">
-        <div class="clearfix mb-1">
+      <div class="card col-lg-9">
+        <div class="card-body">
+          <h4>Session ended successfully</h4>
+          <P>Click the button below to download the document or recording</P>
+          <div>
+            <span class="h5"> Download: </span>
+            <a @click="download" href="#" id="download" class=""
+              ><Icon icon="material-symbols:slow-motion-video" />
+              {{ videofilename }}</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9 col-sm-12">
+        <div class="mb-1 d-flex justify-content-between">
           <!-- <button class="btn btn-outline-secondary float-end">Share</button> -->
           <div class="btn-group">
             <button
@@ -12,25 +26,37 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Share
+              Share & Export
             </button>
             <div
               class="dropdown-menu"
               aria-labelledby="dropdownMenuButton"
               style=""
             >
-              <a class="dropdown-item" href="#">Downalod</a>
-              <a class="dropdown-item" href="#">Print</a>
+              <a class="dropdown-item" href="#">Download</a>
+              <a class="dropdown-item" href="#">Share via email</a>
             </div>
           </div>
         </div>
-        <section class="card">
+        <div>Title: {{ documentTitle }}</div>
+        <!-- <section class="card">
           <img
             src="@/assets/images/affidavit.png"
             alt="document"
             class="img-fluid"
           />
-        </section>
+        </section> -->
+        <div
+          v-for="(doc, index) in userDocument.documentUploads"
+          :key="index"
+          class="position-relative border card"
+        >
+          <RenderPage
+            :file="doc.file_url"
+            @click="$emit('docId', doc.id)"
+            @documentHeight="getHeight"
+          />
+        </div>
         <section class="card digi_cert">
           <div class="sec-1">
             <div class="p-2">
@@ -189,6 +215,49 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+
+import { useGetters } from "vuex-composition-helpers/dist";
+import RenderPage from "@/components/Document/Edit/Main/RenderPage";
+import moment from "moment";
+import { Icon } from "@iconify/vue";
+// const { userDocument } = useGetters(["userDocument"]);
+
+const dateTime = () => {
+  return moment().format("Do MMM YYYY");
+};
+
+const { userDocument } = useGetters({
+  userDocument: "document/userDocument",
+});
+
+const route = useRouter();
+const uri = ref("");
+const date = dateTime();
+const documentTitle = userDocument.value.title;
+const videofilename = userDocument.value.title + "_" + date;
+const download = () => {
+  let downloadLink = document.getElementById("download");
+  //   downloadLink.href = ;
+  downloadLink.download = `${videofilename || "recording"}.webm`;
+  console.log(uri.value.record_file);
+};
+
+// let isActive = ref(false);
+onMounted(() => {
+  let downloadLink = document.getElementById("download");
+  uri.value = route.currentRoute.value.query;
+  downloadLink.href = uri.value.record_file;
+
+  // let video_url = route.currentRoute.value.query.record_file;
+  // console.log(video_url);
+
+  // video_url === undefined ? (isActive = false) : (isActive = true);
+
+  // console.log(route.currentRoute.value);
+});
+
 const data = [
   {
     id: 1,
@@ -211,5 +280,8 @@ const data = [
   background-repeat: no-repeat;
   background-size: 100%;
   /* background-color: #f7f8f9; */
+}
+#download:hover {
+  text-decoration: underline;
 }
 </style>

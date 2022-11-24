@@ -223,7 +223,7 @@
                               class="btn-outline-danger btn btn-sm my-1 ms-1"
                               @click="
                                 getDocument({
-                                  id: '24aee73e-0581-407f-b429-d64d048295a3',
+                                  id: result.id,
                                 })
                               "
                             >

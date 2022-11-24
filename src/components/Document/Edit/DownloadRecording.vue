@@ -15,7 +15,7 @@
             <Icon icon="material-symbols:slow-motion-video" />
             <a @click="download" href="#" id="download" class="text-primary">{{
               filename
-            }}</a>
+            }}</a> 
           </div>
         </div>
       </div>

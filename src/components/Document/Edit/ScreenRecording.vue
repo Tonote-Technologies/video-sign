@@ -118,7 +118,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 import { ref, onMounted } from "vue";
-import { useGetters } from "vuex-composition-helpers/dist";
+import { useGetters, useActions } from "vuex-composition-helpers/dist";
 import { useRouter } from "vue-router";
 import ModalComp from "@/components/ModalComp.vue";
 import moment from "moment";
@@ -212,13 +212,28 @@ const handleRecord = function ({ stream, mimeType }) {
 
       let videoFile = URL.createObjectURL(blob);
       route.push({
-        name: "document.downloadrecording",
+        // name: "document.downloadrecording",
+        name: "certificate",
         query: { record_file: videoFile },
       });
+      getDocument(userDocument.value.id);
     };
   };
   console.log(recordStream);
   mediaRecorder.start(200);
+};
+
+// const { getUserDocument } = useActions({
+//   getUserDocument: "document/getUserDocument",
+// });
+
+const { getUserDocument } = useActions({
+  getUserDocument: "document/getUserDocument",
+});
+
+// const params = ref(userDocument);
+const getDocument = (params) => {
+  getUserDocument(params.id);
 };
 
 const recordScreen = async () => {
