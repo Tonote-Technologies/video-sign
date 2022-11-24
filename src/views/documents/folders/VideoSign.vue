@@ -359,7 +359,7 @@ onMounted(() => {
 const nextMeeting = ref([]);
 
 onUpdated(() => {
-  fetchTodaysRecord();
+  // fetchTodaysRecord();
   // theId.value = dashboard.value.status;
   setTimeout(() => {
     if ($.fn.dataTable.isDataTable("#allrecord")) {
