@@ -290,7 +290,7 @@ onMounted(() => {
   border-bottom: 2px solid #ff9f43 !important;
 }
 .nav-tabs .nav-link:hover {
-  background-color: #105bef82 !important;
+  background-color: #003bb3 !important;
   border-bottom: 2px solid #ff9f43 !important;
 }
 .nav-tabs .nav-link:hover .h5 {
