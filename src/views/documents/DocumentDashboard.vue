@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <ul class="nav nav-tabs row mb-2" role="tablist">
-      <li class="nav-item col-lg-3 col-12">
+      <li class="nav-item col-lg-3 col-12 mb-2">
         <a
           id="affidavit-tab"
           data-bs-toggle="tab"
@@ -30,7 +30,7 @@
         </a>
       </li>
 
-      <li class="nav-item col-lg-3 col-12">
+      <li class="nav-item col-lg-3 col-12 mb-2">
         <a
           id="notary-tab"
           data-bs-toggle="tab"
@@ -59,7 +59,7 @@
         </a>
       </li>
 
-      <li class="nav-item col-lg-3 col-12">
+      <li class="nav-item col-lg-3 col-12 mb-2">
         <a
           id="videoSign-tab"
           data-bs-toggle="tab"
