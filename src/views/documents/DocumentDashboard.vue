@@ -1,81 +1,87 @@
 <template>
   <div class="">
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item">
+    <ul class="nav nav-tabs row mb-2" role="tablist">
+      <li class="nav-item col-lg-3 col-12">
         <a
           id="affidavit-tab"
           data-bs-toggle="tab"
           href="#affidavit"
           role="tab"
           aria-selected="true"
-          class="nav-link"
+          class="nav-link card"
           :class="{ active: isAffidavitActive }"
         >
-          <div class="card">
-            <div class="card-body d-flex justify-content-between">
+          <div class="row py-2">
+            <div class="col-9 d-flex align-items-center">
               <div>
-                <div class="text-dark h5">Affidavit Requests</div>
-                <h5 class="fw-bold">{{ affidavits?.length }}</h5>
+                <div class="h5">Affidavit Requests</div>
               </div>
+            </div>
 
-              <div class="">
-                <span class="btn rounded-pill btn-light text-center"
-                  ><Icon icon="carbon:document-preliminary"
-                /></span>
+            <div class="col-3 d-flex align-items-center justify-content-end">
+              <div
+                class="btn btn-sm btn-light text-center rounded-pill"
+                style="font-size: 16px"
+              >
+                {{ affidavits?.length > 0 ? affidavits?.length : 0 }}
               </div>
             </div>
           </div>
         </a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item col-lg-3 col-12">
         <a
           id="notary-tab"
           data-bs-toggle="tab"
           href="#notary"
           role="tab"
           aria-selected="true"
-          class="nav-link"
+          class="nav-link card"
           :class="{ active: isNotaryActive }"
         >
-          <div class="card">
-            <div class="card-body d-flex justify-content-between">
+          <div class="row py-2">
+            <div class="col-9 d-flex align-items-center">
               <div>
-                <div class="text-dark h5">Notary Requests</div>
-                <h5 class="fw-bold">2</h5>
+                <div class="h5">Notary Requests</div>
               </div>
+            </div>
 
-              <div class="">
-                <span class="btn rounded-pill btn-light text-center"
-                  ><Icon icon="fa6-solid:stamp"
-                /></span>
+            <div class="col-3 d-flex align-items-center justify-content-end">
+              <div
+                class="btn btn-sm btn-light text-center rounded-pill"
+                style="font-size: 16px"
+              >
+                0
               </div>
             </div>
           </div>
         </a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item col-lg-3 col-12">
         <a
           id="videoSign-tab"
           data-bs-toggle="tab"
           href="#videoSign"
           role="tab"
           aria-selected="true"
-          class="nav-link"
+          class="nav-link card"
           :class="{ active: isActive }"
         >
-          <div class="card">
-            <div class="card-body d-flex justify-content-between">
+          <div class="row py-2">
+            <div class="col-9 d-flex align-items-center">
               <div>
-                <div class="text-dark h5">Video Sign</div>
-                <h5 class="fw-bold">{{ tableRecord.length }}</h5>
+                <div class="h5">Video Sign</div>
               </div>
+            </div>
 
-              <div class="">
-                <span class="btn rounded-pill btn-light text-center"
-                  ><Icon icon="carbon:document-preliminary"
-                /></span>
+            <div class="col-3 d-flex align-items-center justify-content-end">
+              <div
+                class="btn btn-sm btn-light text-center rounded-pill"
+                style="font-size: 16px"
+              >
+                {{ tableRecord.length }}
               </div>
             </div>
           </div>
@@ -169,7 +175,7 @@
             </a>
           </div>
           <div class="col-lg-4">
-            <div class="text-dark fw-bold">Status</div>
+            <div class="fw-bold">Status</div>
             <div>
               <small class="badge rounded-pill badge-light-danger"
                 >Immediate</small
@@ -203,7 +209,7 @@
             </a>
           </div>
           <div class="col-lg-4">
-            <div class="text-dark fw-bold">Status</div>
+            <div class="fw-bold">Status</div>
             <div>
               <small class="badge rounded-pill badge-light-primary"
                 >Scheduled</small
@@ -211,7 +217,11 @@
             </div>
           </div>
           <div class="col-lg-4">
-            <button class="btn btn-sm btn-light text-center" disabled>
+            <button
+              class="btn btn-sm btn-light text-center"
+              disabled
+              rounded-pill
+            >
               Join Now
             </button>
           </div>
@@ -222,7 +232,7 @@
 </template>
 
 <script setup>
-import { Icon } from "@iconify/vue";
+// import { Icon } from "@iconify/vue";
 import AffidavitRequest from "@/views/documents/folders/AffidavitRequest";
 import NotaryRequest from "@/views/documents/folders/NotaryRequest";
 import VideoSign from "@/views/documents/folders/VideoSign";
@@ -272,5 +282,21 @@ onMounted(() => {
 }
 .show li {
   list-style: none;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #003bb3 !important;
+  border-radius: 2px;
+  border-bottom: 2px solid #ff9f43 !important;
+}
+.nav-tabs .nav-link:hover {
+  background-color: #105bef82 !important;
+  border-bottom: 2px solid #ff9f43 !important;
+}
+.nav-tabs .nav-link:hover .h5 {
+  color: #fff !important;
+}
+.nav-tabs .nav-link.active .h5 {
+  color: #fff !important;
 }
 </style>

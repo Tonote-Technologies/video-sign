@@ -50,6 +50,21 @@ export const StatesAction = ({ commit }, country_id) => {
   // }
 };
 
+export const ScheduleVirtualSessionUpdate = ({ commit }, formData) => {
+  // if (state?.time_slots?.length === 0) {
+  Schedule.ScheduleVirtualSessionUpdateStatus(formData)
+    .then((response) => {
+      commit("SET_SCHEDULE_STATUS", response.data.data);
+    })
+    .catch((error) => {
+      if (error.response.status == 401 || error.response.status == 404) {
+        commit("SET_SCHEDULE_STATUS", []);
+        Vue.$toast.error(`${error.response.data.errors.root}`);
+      }
+    });
+  // }
+};
+
 export const ScheduleVirtualSessionAction = ({ commit }, formData) => {
   return new Promise((resolve, reject) => {
     Schedule.ScheduleVirtualSessionApi(formData)

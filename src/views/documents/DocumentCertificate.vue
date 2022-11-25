@@ -240,9 +240,8 @@ const videofilename =
   "Recorded video for " + userDocument.value.title + "_" + date;
 const download = () => {
   let downloadLink = document.getElementById("download");
-  //   downloadLink.href = ;
   downloadLink.download = `${videofilename || "recording"}.webm`;
-  console.log(uri.value.record_file);
+  // console.log(uri.value.record_file);
 };
 
 // let isActive = ref(false);
@@ -251,6 +250,7 @@ onMounted(() => {
   uri.value = route.currentRoute.value.query;
   downloadLink.href = uri.value.record_file;
 
+  console.log(userDocument.value.id);
   // let video_url = route.currentRoute.value.query.record_file;
   // console.log(video_url);
 

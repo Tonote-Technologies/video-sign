@@ -120,6 +120,7 @@ import { Icon } from "@iconify/vue";
 import { ref, onMounted } from "vue";
 import { useGetters, useActions } from "vuex-composition-helpers/dist";
 import { useRouter } from "vue-router";
+import store from "@/store";
 import ModalComp from "@/components/ModalComp.vue";
 import moment from "moment";
 import "jquery/dist/jquery.min";
@@ -211,15 +212,25 @@ const handleRecord = function ({ stream, mimeType }) {
       });
 
       let videoFile = URL.createObjectURL(blob);
-      route.push({
-        // name: "document.downloadrecording",
-        name: "certificate",
-        query: { record_file: videoFile },
-      });
-      getDocument(userDocument.value.id);
+      let UploadFormData = {
+        id: userDocument.value.id,
+        status: "Completed",
+        cancel_reason: "Not cancelled",
+        comment: "Completed successfully",
+      };
+      store
+        .dispatch("schedule/ScheduleVirtualSessionUpdate", UploadFormData)
+        .then(() => {
+          route.push({
+            // name: "document.downloadrecording",
+            name: "certificate",
+            query: { record_file: videoFile },
+          });
+          getDocument(userDocument.value.id);
+        });
     };
   };
-  console.log(recordStream);
+  // console.log(recordStream);
   mediaRecorder.start(200);
 };
 
@@ -358,11 +369,11 @@ const done = () => {
   doneModal.value = true;
 };
 const confirmEdit = () => {
-  console.log(recordStream.length);
+  // console.log(recordStream.length);
   if (recordStream.length === 0) {
     route.push({
-      name: "Document",
-      query: { page: "video-sign" },
+      name: "certificate",
+      // query: { record_file: videoFile },
     });
     // window.location.href =
     //   redirectToUserDashboard.value + "/redirecting?qt=" + token.value;

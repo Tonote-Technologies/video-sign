@@ -10,6 +10,10 @@ export const SET_SCHEDULE_STATES = (state, payload) => {
   state.states = payload;
 };
 
+export const SET_SCHEDULE_STATUS = (state, payload) => {
+  state.status = payload;
+};
+
 export const SET_SCHEDULE_DETAILS = (state, payload) => {
   console.log(payload)
   if (payload == undefined) {

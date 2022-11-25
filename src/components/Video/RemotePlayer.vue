@@ -16,7 +16,7 @@ export default {
             if (err && err.status !== "aborted") {
               console.warn("trigger autoplay policy");
             }
-          }
+          },
         );
         this.remoteStream.audioTrack.play();
       }
