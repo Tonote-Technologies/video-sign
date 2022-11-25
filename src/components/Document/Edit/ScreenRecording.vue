@@ -13,7 +13,7 @@
               <span class="digit" id="count" style="display: none">00</span>
             </div>
           </div>
-          <div class="recorder-arrow d-flex align-items-center">
+          <!-- <div class="recorder-arrow d-flex align-items-center">
             <button
               type="button"
               class="btn btn-sm me-1 btn-primary"
@@ -33,7 +33,7 @@
             >
               Pause
             </button>
-          </div>
+          </div> -->
           <div class="recorder-arrow d-flex align-items-center">
             <button
               type="button"
@@ -120,7 +120,6 @@ import { Icon } from "@iconify/vue";
 import { ref, onMounted } from "vue";
 import { useGetters, useActions } from "vuex-composition-helpers/dist";
 import { useRouter } from "vue-router";
-import store from "@/store";
 import ModalComp from "@/components/ModalComp.vue";
 import moment from "moment";
 import "jquery/dist/jquery.min";
@@ -128,8 +127,9 @@ import $ from "jquery";
 
 const route = useRouter();
 
-const { userDocument } = useGetters({
+const { userDocument, virtual_session_details } = useGetters({
   userDocument: "document/userDocument",
+  virtual_session_details: "schedule/virtual_session_details",
 });
 
 const dateTime = () => {
@@ -169,11 +169,18 @@ const stopRecord = () => {
   $("#time").css("display", "none");
 };
 
-const stop = () => {
-  shouldStop = true;
-  timer = false;
+// const stop = () => {
+//   shouldStop = true;
+//   timer = false;
+// };
+let UploadFormData = {
+  id: virtual_session_details.value.id,
+  payload: {
+    status: "Completed",
+    cancel_reason: "Not cancelled",
+    comment: "Completed successfully",
+  },
 };
-
 const handleRecord = function ({ stream, mimeType }) {
   stopped = false;
   startRecord();
@@ -212,39 +219,30 @@ const handleRecord = function ({ stream, mimeType }) {
       });
 
       let videoFile = URL.createObjectURL(blob);
-      let UploadFormData = {
-        id: userDocument.value.id,
-        status: "Completed",
-        cancel_reason: "Not cancelled",
-        comment: "Completed successfully",
-      };
-      store
-        .dispatch("schedule/ScheduleVirtualSessionUpdate", UploadFormData)
-        .then(() => {
-          route.push({
-            // name: "document.downloadrecording",
-            name: "certificate",
-            query: { record_file: videoFile },
-          });
-          getDocument(userDocument.value.id);
-        });
+      ScheduleVirtualSessionUpdate(UploadFormData);
+      getDocument(userDocument.value.id);
+      route.push({
+        // name: "document.downloadrecording",
+        name: "certificate",
+        query: { record_file: videoFile },
+      });
     };
   };
   // console.log(recordStream);
   mediaRecorder.start(200);
 };
 
-// const { getUserDocument } = useActions({
-//   getUserDocument: "document/getUserDocument",
-// });
-
-const { getUserDocument } = useActions({
+const { getUserDocument, ScheduleVirtualSessionUpdate } = useActions({
   getUserDocument: "document/getUserDocument",
+  ScheduleVirtualSessionUpdate: "schedule/ScheduleVirtualSessionUpdate",
 });
 
 // const params = ref(userDocument);
 const getDocument = (params) => {
   getUserDocument(params.id);
+  // route.push({
+  //   name: "certificate",
+  // });
 };
 
 const recordScreen = async () => {
@@ -286,22 +284,22 @@ const confirmRecording = async () => {
   stream = new MediaStream(tracks);
   handleRecord({ stream, mimeType });
 };
-const pauseResume = (e) => {
-  const mRecorder = recordStream[0];
-  console.log(mRecorder.state);
-  if (mRecorder.state === "recording") {
-    timer = false;
-    mRecorder.pause();
-    e.target.innerHTML =
-      "<Icon class='size' icon='grommet-icons:resume' /> Resume";
-  } else if (mRecorder.state === "paused") {
-    timer = true;
-    stopWatch();
-    e.target.innerHTML = "<Icon class='size' icon='ic:sharp-pause' /> Pause";
-    mRecorder.resume();
-  }
-  return false;
-};
+// const pauseResume = (e) => {
+//   const mRecorder = recordStream[0];
+//   console.log(mRecorder.state);
+//   if (mRecorder.state === "recording") {
+//     timer = false;
+//     mRecorder.pause();
+//     e.target.innerHTML =
+//       "<Icon class='size' icon='grommet-icons:resume' /> Resume";
+//   } else if (mRecorder.state === "paused") {
+//     timer = true;
+//     stopWatch();
+//     e.target.innerHTML = "<Icon class='size' icon='ic:sharp-pause' /> Pause";
+//     mRecorder.resume();
+//   }
+//   return false;
+// };
 
 // Timer
 function resetTime() {
@@ -369,14 +367,13 @@ const done = () => {
   doneModal.value = true;
 };
 const confirmEdit = () => {
-  // console.log(recordStream.length);
   if (recordStream.length === 0) {
+    ScheduleVirtualSessionUpdate(UploadFormData);
+    getDocument(userDocument.value.id);
     route.push({
+      // name: "document.downloadrecording",
       name: "certificate",
-      // query: { record_file: videoFile },
     });
-    // window.location.href =
-    //   redirectToUserDashboard.value + "/redirecting?qt=" + token.value;
   } else {
     shouldStop = true;
     timer = false;
@@ -397,5 +394,6 @@ onMounted(() => {
 #pauseResume,
 #time {
   display: none;
+  color: red;
 }
 </style>

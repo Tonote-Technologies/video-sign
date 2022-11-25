@@ -259,21 +259,22 @@ const { getSessionRecords } = useActions({
 });
 
 const tableRecord = ref([]);
-onMounted(() => {
-  allSessionRecord.value.filter((respond) => {
-    if (respond.entry_point === "Video") {
-      tableRecord.value.push(respond);
-    }
-  });
-  getSessionRecords(token.value);
 
-  uri.value = route.currentRoute.value.query;
-
-  isAffidavitActive.value = uri.value.page === undefined ? true : false;
-
-  isNotaryActive.value = uri.value.page === "notary-request" ? true : false;
-  isActive.value = uri.value.page === "video-sign" ? true : false;
+allSessionRecord.value.filter((respond) => {
+  if (respond.entry_point === "Video") {
+    tableRecord.value.push(respond);
+  }
 });
+getSessionRecords(token.value);
+
+uri.value = route.currentRoute.value.query;
+
+isAffidavitActive.value = uri.value.page === undefined ? true : false;
+
+isNotaryActive.value = uri.value.page === "notary-request" ? true : false;
+isActive.value = uri.value.page === "video-sign" ? true : false;
+
+onMounted(() => {});
 </script>
 
 <style scoped>

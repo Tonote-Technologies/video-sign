@@ -4,13 +4,17 @@
       <div class="card col-lg-9">
         <div class="card-body">
           <h4>Session ended successfully</h4>
-          <P>Click the button below to download the document or recording</P>
+          <P>Download your session resources below</P>
           <div>
-            <span class="h5"> Download: </span>
-            <a @click="download" href="#" id="download" class=""
-              ><Icon icon="material-symbols:slow-motion-video" />
-              {{ videofilename }}</a
-            >
+            <template v-if="isActive">
+              <div>
+                <span class="h5"> Download: </span>
+                <a @click="download" href="#" id="download" class=""
+                  ><Icon icon="material-symbols:slow-motion-video" />
+                  {{ videofilename }}</a
+                >
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -67,9 +71,9 @@
 
               <div>
                 <h5 class="fw-bolder">
-                  Notarised Document Name: Affidavit of Bachelorhood
+                  Notarised Document Name: {{ documentTitle }}
                 </h5>
-                <p class="fw-bolder">Document Notarised On: 07 Jul, 2022.</p>
+                <p class="fw-bolder">Document Completed On: 07 Jul, 2022.</p>
               </div>
 
               <table class="table table-bordered border-dark">
@@ -244,13 +248,16 @@ const download = () => {
   // console.log(uri.value.record_file);
 };
 
-// let isActive = ref(false);
+let isActive = ref(false);
+
+let video_url = route.currentRoute.value.query.record_file;
+console.log(video_url);
+video_url === undefined ? (isActive = false) : (isActive = true);
 onMounted(() => {
   let downloadLink = document.getElementById("download");
   uri.value = route.currentRoute.value.query;
-  downloadLink.href = uri.value.record_file;
+  video_url === undefined ? "" : (downloadLink.href = uri.value?.record_file);
 
-  console.log(userDocument.value.id);
   // let video_url = route.currentRoute.value.query.record_file;
   // console.log(video_url);
 

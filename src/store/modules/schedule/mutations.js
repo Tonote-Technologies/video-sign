@@ -15,7 +15,6 @@ export const SET_SCHEDULE_STATUS = (state, payload) => {
 };
 
 export const SET_SCHEDULE_DETAILS = (state, payload) => {
-  console.log(payload)
   if (payload == undefined) {
     console.log("Error something went wrong")
   } else {
@@ -73,7 +72,7 @@ export const UNSET_SCHEDULE_LOADER = (state) => {
 // schedule video signing form data
 //stage one (document title and upload file)
 export const SET_SCHEDULE_FORMDATA_1 = (state, payload) => {
-  console.log(payload);
+  // console.log(payload);
   state.schedule_formdata.documentFile.push(payload.documentFile);
   state.schedule_formdata.title = payload.title;
   state.schedule_formdata.documentTitle = payload.documentTitle;

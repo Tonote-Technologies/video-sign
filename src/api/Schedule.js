@@ -22,9 +22,7 @@ export default {
 
   //request virtual notary session
   ScheduleVirtualSessionUpdateStatus(data) {
-    return Api.put(`request-virtual-session/${data.id}`, {
-      status: data.status,
-    });
+    return Api.put(`request-virtual-session/${data.id}`, data.payload);
   },
 
   //get virtual session details

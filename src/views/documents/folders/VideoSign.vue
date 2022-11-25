@@ -135,7 +135,8 @@
                         v-if="
                           result.immediate === true &&
                           result.date === today &&
-                          result.end_session === false
+                          result.end_session === false &&
+                          result.status === 'Pending'
                         "
                       >
                         <router-link

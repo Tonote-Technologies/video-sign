@@ -8,7 +8,6 @@
         placeholder="Enter document title"
         class="form-control request-title"
       />
-      
     </div>
 
     <div class="file-input shadow my-2">
@@ -96,13 +95,13 @@ export default {
           documentTitle: file.name,
           documentFile: reader.result,
         });
-        console.log({
-          title: !this.schedule_formdata.title?.length
-            ? file.name
-            : this.schedule_formdata.title,
-          documentTitle: file.name,
-          documentFile: reader.result,
-        });
+        // console.log({
+        //   title: !this.schedule_formdata.title?.length
+        //     ? file.name
+        //     : this.schedule_formdata.title,
+        //   documentTitle: file.name,
+        //   documentFile: reader.result,
+        // });
       };
       reader.readAsDataURL(file);
     },
