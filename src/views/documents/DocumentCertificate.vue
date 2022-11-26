@@ -30,15 +30,16 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Share & Export
+              Share & Download
             </button>
             <div
               class="dropdown-menu"
               aria-labelledby="dropdownMenuButton"
               style=""
             >
-              <a class="dropdown-item" href="#">Download</a>
-              <a class="dropdown-item" href="#">Share via email</a>
+              <a class="dropdown-item" href="#">Download Document</a>
+              <a class="dropdown-item" href="#">Download Recording</a>
+              <!-- <a class="dropdown-item" href="#">Share via email</a> -->
             </div>
           </div>
         </div>

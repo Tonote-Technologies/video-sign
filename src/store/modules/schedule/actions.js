@@ -50,9 +50,9 @@ export const StatesAction = ({ commit }, country_id) => {
   // }
 };
 
-export const ScheduleVirtualSessionUpdate = ({ commit }, formData) => {
+export const ScheduleVirtualSessionUpdate = ({ commit }, sessionData) => {
   // if (state?.time_slots?.length === 0) {
-  Schedule.ScheduleVirtualSessionUpdateStatus(formData)
+  Schedule.ScheduleVirtualSessionUpdateStatus(sessionData)
     .then((response) => {
       commit("SET_SCHEDULE_STATUS", response.data.data);
     })
