@@ -21,27 +21,38 @@
             <template v-if="data.type === 'Request Affidavit'">
               <td>{{ index + 1 }}</td>
               <td>{{ data.title }}</td>
-              <td>{{ data.status }}</td>
+              <td>
+                <span
+                  class="badge rounded-pill me-1"
+                  :class="[
+                    data.status == 'Awaiting' ? 'bg-warning' : 'bg-success',
+                  ]"
+                >
+                  {{ data.status }}
+                </span>
+              </td>
               <td>{{ dateTime(data.created_at) }}</td>
 
               <td>
-                <div class="dropdown">
-                  <a
-                    class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    ><Icon
-                      icon="oi:ellipses"
-                      :rotate="1"
-                      :verticalFlip="true"
-                    />
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-end" style="">
-                    <div class="dropdown-item">
-                      <Icon icon="carbon:download" /> Download
+                <template v-if="data.status == 'Completed'">
+                  <div class="dropdown">
+                    <a
+                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      ><Icon
+                        icon="oi:ellipses"
+                        :rotate="1"
+                        :verticalFlip="true"
+                      />
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" style="">
+                      <div class="dropdown-item">
+                        <Icon icon="carbon:download" /> Download
+                      </div>
                     </div>
                   </div>
-                </div>
+                </template>
               </td>
             </template>
           </tr>

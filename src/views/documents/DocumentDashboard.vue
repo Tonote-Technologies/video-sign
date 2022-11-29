@@ -23,7 +23,7 @@
                 class="btn btn-sm btn-light text-center rounded-pill"
                 style="font-size: 16px"
               >
-                {{ affidavits?.length > 0 ? affidavits?.length : 0 }}
+                {{ countAffidavit?.length > 0 ? countAffidavit?.length : 0 }}
               </div>
             </div>
           </div>
@@ -52,7 +52,11 @@
                 class="btn btn-sm btn-light text-center rounded-pill"
                 style="font-size: 16px"
               >
-                0
+                {{
+                  countNotaryRequest?.length > 0
+                    ? countNotaryRequest?.length
+                    : 0
+                }}
               </div>
             </div>
           </div>
@@ -259,6 +263,20 @@ const { getSessionRecords } = useActions({
 });
 
 const tableRecord = ref([]);
+const countAffidavit = ref([]);
+const countNotaryRequest = ref([]);
+
+affidavits.value.filter((respond) => {
+  if (respond.type === "Request Affidavit") {
+    countAffidavit.value.push(respond);
+  }
+});
+
+affidavits.value.filter((respond) => {
+  if (respond.type === "Request A Notary") {
+    countNotaryRequest.value.push(respond);
+  }
+});
 
 allSessionRecord.value.filter((respond) => {
   if (respond.entry_point === "Video") {

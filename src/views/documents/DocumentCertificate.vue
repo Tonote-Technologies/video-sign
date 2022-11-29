@@ -6,7 +6,7 @@
           <h4>Session ended successfully</h4>
           <P>Download your session resources below</P>
           <div>
-            <template v-if="isActive">
+            <!-- <template v-if="isActive">
               <div>
                 <span class="h5"> Download: </span>
                 <a @click="download" href="#" id="download" class=""
@@ -14,7 +14,7 @@
                   {{ videofilename }}</a
                 >
               </div>
-            </template>
+            </template> -->
           </div>
         </div>
       </div>
@@ -38,7 +38,16 @@
               style=""
             >
               <a class="dropdown-item" href="#">Download Document</a>
-              <a class="dropdown-item" href="#">Download Recording</a>
+              <template v-if="isActive">
+                <a
+                  @click="download"
+                  href="#"
+                  id="download"
+                  class="dropdown-item"
+                  ><Icon icon="material-symbols:slow-motion-video" /> Download
+                  Recording
+                </a>
+              </template>
               <!-- <a class="dropdown-item" href="#">Share via email</a> -->
             </div>
           </div>
