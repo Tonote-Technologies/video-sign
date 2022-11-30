@@ -3,29 +3,12 @@
     <PreLoader />
   </div>
   <section class="container-fluid" v-else>
-    <div
-      class="email-header-left d-flex align-items-center mb-2 fw-bold"
-      style="font-size: 1rem"
-    >
-      <router-link
-        :to="{ name: 'Dashboard' }"
-        role="button"
-        @click="$router.go(-1)"
-        class="back"
-      >
+    <div class="email-header-left d-flex align-items-center mb-2 fw-bold" style="font-size: 1rem">
+      <router-link :to="{ name: 'Dashboard' }" role="button" @click="$router.go(-1)" class="back">
         <span class="go-back me-1 float-start">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-chevron-left font-medium-4"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-chevron-left font-medium-4">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </span>
@@ -43,44 +26,22 @@
             <div class="form-group mb-2">
               <div class="form-group">
                 <label>Document title</label>
-                <Field
-                  name="title"
-                  type="text"
-                  class="form-control"
-                  :class="{ 'is-invalid': errors.title }"
-                  placeholder="Enter document title"
-                  v-model="title"
-                  required
-                />
+                <Field name="title" type="text" class="form-control" :class="{ 'is-invalid': errors.title }"
+                  placeholder="Enter document title" v-model="title" required />
                 <div class="invalid-feedback">{{ errors.title }}</div>
               </div>
             </div>
             <template v-if="!initialUpload">
-              <DropZone
-                @drop.prevent="drop"
-                @change="selectedFile($event, true)"
-              >
+              <DropZone @drop.prevent="drop" @change="selectedFile($event, true)">
                 <template #format>Upload PDF</template>
                 <template #input>
-                  <input
-                    type="file"
-                    id="dropzoneFile"
-                    multiple
-                    class="dropzoneFile"
-                    accept=".pdf"
-                  />
+                  <input type="file" id="dropzoneFile" multiple class="dropzoneFile" accept=".pdf" />
                 </template>
               </DropZone>
             </template>
             <template v-else>
               <label for="choose" class="btn btn-primary">
-                <input
-                  type="file"
-                  id="choose"
-                  @change="selectedFile($event, true)"
-                  multiple
-                  accept=".pdf"
-                />
+                <input type="file" id="choose" @change="selectedFile($event, true)" multiple accept=".pdf" />
                 Upload more
               </label>
             </template>
@@ -89,46 +50,27 @@
             </p>
           </div>
         </div>
-        <div
-          class="card mb-1 mb-0 shadow-none border"
-          v-for="(prev, index) in previewFile"
-          :key="index"
-        >
+        <div class="card mb-1 mb-0 shadow-none border" v-for="(prev, index) in previewFile" :key="index">
           <div class="p-2">
             <div class="row align-items-center">
               <div class="col-auto">
-                <img
-                  data-dz-thumbnail
-                  src="@/assets/default.png"
-                  class="avatar-sm rounded bg-light"
-                  :alt="prev.file.name"
-                />
+                <img data-dz-thumbnail src="@/assets/default.png" class="avatar-sm rounded bg-light"
+                  :alt="prev.file.name" />
               </div>
               <div class="col ps-0">
-                <a
-                  href="javascript:void(0)"
-                  class="text-muted fw-bold"
-                  data-dz-name
-                ></a>
+                <a href="javascript:void(0)" class="text-muted fw-bold" data-dz-name></a>
                 <p class="mb-0" data-dz-size>
                   {{ prev.file.name }} | Size:
-                  <span
-                    :class="[
-                      prev.file.size > 2097152 ? 'text-danger' : 'text-success',
-                    ]"
-                  >
+                  <span :class="[
+                    prev.file.size > 2097152 ? 'text-danger' : 'text-success',
+                  ]">
                     {{ prev.size }}
                   </span>
                 </p>
               </div>
               <div class="col-auto">
-                <a
-                  role="button"
-                  class="btn btn-sm btn-outline-danger ds-remove filed"
-                  data-id="#document_id"
-                  data-name="fileName"
-                  @click="removeItem(index)"
-                >
+                <a role="button" class="btn btn-sm btn-outline-danger ds-remove filed" data-id="#document_id"
+                  data-name="fileName" @click="removeItem(index)">
                   X
                 </a>
               </div>
@@ -136,11 +78,7 @@
           </div>
         </div>
         <div class="card mb-2 p-2">
-          <button
-            type="submit"
-            class="btn btn-sm btn-primary d-block ms-auto"
-            :class="{ disabled: !isSelected }"
-          >
+          <button type="submit" class="btn btn-sm btn-primary d-block ms-auto" :class="{ disabled: !isSelected }">
             Proceed
           </button>
         </div>
@@ -271,11 +209,13 @@ onMounted(() => {
   border-right: 2px solid #ccc;
   margin-right: 1.5rem;
 }
+
 .grid {
   display: grid;
   place-items: center;
   height: 80vh;
 }
+
 .avatar-sm {
   height: 3rem;
   width: 3rem;

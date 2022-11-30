@@ -1,50 +1,21 @@
 <template>
-  <div
-    class="card rounded-0 mb-0 p-1 d-lg-none d-sm-block d-md-block custom-position"
-  >
-    <ul
-      class="nav d-flex justify-content-between align-items-center"
-      v-show="hasRole"
-    >
+  <div class="card rounded-0 mb-0 p-1 d-lg-none d-sm-block d-md-block custom-position">
+    <ul class="nav d-flex justify-content-between align-items-center" v-show="hasRole">
       <!-- signature tool  -->
       <li class="nav-item d-none">
         <div class="btn-group">
-          <button
-            class="extra__button waves-effect waves-float btn-secondary me-1"
-            @click="plusBtn"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="css-i6dzq1"
-            >
+          <button class="extra__button waves-effect waves-float btn-secondary me-1" @click="plusBtn">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+              stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               <line x1="11" y1="8" x2="11" y2="14"></line>
               <line x1="8" y1="11" x2="14" y2="11"></line>
             </svg>
           </button>
-          <button
-            class="extra__button waves-effect waves-float btn-secondary"
-            @click="minusBtn"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="css-i6dzq1"
-            >
+          <button class="extra__button waves-effect waves-float btn-secondary" @click="minusBtn">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+              stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               <line x1="8" y1="11" x2="14" y2="11"></line>
@@ -55,78 +26,40 @@
       <!-- more buttons dropdown  -->
       <li class="nav-item">
         <div class="btn-group">
-          <button
-            type="button"
-            class="extra__button waves-effect waves-float waves-light"
-            data-bs-toggle="dropdown"
-            aria-expanded="true"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="css-i6dzq1"
-            >
+          <button type="button" class="extra__button waves-effect waves-float waves-light" data-bs-toggle="dropdown"
+            aria-expanded="true">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+              stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
               <circle cx="12" cy="12" r="1"></circle>
               <circle cx="12" cy="5" r="1"></circle>
               <circle cx="12" cy="19" r="1"></circle>
             </svg>
           </button>
-          <div
-            class="dropdown-menu dropdown-menu-end"
-            data-popper-placement="bottom-start"
-          >
+          <div class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-start">
             <!-- <div class="dropdown-divider"></div> -->
             <template v-if="userDocument.is_the_owner_of_document === true">
-              <a
-                class="dropdown-item btn d-flex align-items-center"
-                role="button"
-                @click="addParticipantModal = true"
-              >
+              <a class="dropdown-item btn d-flex align-items-center" role="button" @click="addParticipantModal = true">
                 <Icon icon="akar-icons:plus" class="me-1" />
                 Add participants
               </a>
             </template>
 
-            <a
-              class="dropdown-item btn d-flex align-items-center"
-              role="button"
-              @click="editSignerModal = true"
-            >
+            <a class="dropdown-item btn d-flex align-items-center" role="button" @click="editSignerModal = true">
               <Icon icon="ep:view" class="me-1" />
               Manage signers
             </a>
-            <a
-              class="dropdown-item btn d-flex align-items-center"
-              role="button"
-              @click="exportPDF"
-            >
+            <a class="dropdown-item btn d-flex align-items-center" role="button" @click="exportPDF">
               <Icon icon="bx:download" class="me-1" />
               Download
             </a>
 
             <div class="dropdown-divider"></div>
 
-            <a
-              @click="affixModal = true"
-              class="dropdown-item"
-              role="button"
-              id="viewSignature"
-              >My Signature</a
-            >
+            <a @click="affixModal = true" class="dropdown-item" role="button" id="viewSignature">My Signature</a>
 
             <template v-if="plan == 'Business'">
-              <a class="dropdown-item" role="button" @click="sealModal = true"
-                >My Seal</a
-              >
-              <a class="dropdown-item" role="button" @click="stampModal = true"
-                >My Stamp</a
-              >
+              <a class="dropdown-item" role="button" @click="sealModal = true">My Seal</a>
+              <a class="dropdown-item" role="button" @click="stampModal = true">My Stamp</a>
             </template>
           </div>
         </div>
@@ -143,86 +76,45 @@
     </ul>
   </div>
 
-  <nav
-    class="header-navbar navbar navbar-expand-lg floating-nav navbar-shadow container-xxl"
-    style="z-index: 102"
-  >
+  <nav class="header-navbar navbar navbar-expand-lg floating-nav navbar-shadow container-xxl" style="z-index: 102">
     <div class="navbar-container d-flex justify-content-between content">
       <div class="bookmark-wrapper d-flex align-items-center">
         <ul class="nav navbar-nav d-xl-none">
           <li class="nav-item d-none">
-            <a class="nav-link menu-toggle" href="#"
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="feather feather-menu ficon"
-              >
+            <a class="nav-link menu-toggle" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="feather feather-menu ficon">
                 <line x1="3" y1="12" x2="21" y2="12"></line>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line></svg
-            ></a>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg></a>
           </li>
         </ul>
         <ul class="nav navbar-nav bookmark-icons" v-show="hasRole">
           <li class="nav-item d-none d-sm-block">
             <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-primary btn-sm waves-effect waves-float waves-light"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="feather feather-settings spinner"
-                >
+              <button type="button" class="btn btn-primary btn-sm waves-effect waves-float waves-light">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-settings spinner">
                   <circle cx="12" cy="12" r="3"></circle>
                   <path
-                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
-                  ></path>
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                  </path>
                 </svg>
                 Signature tools
               </button>
-              <button
-                type="button"
+              <button type="button"
                 class="btn btn-outline-primary btn-sm dropdown-toggle dropdown-toggle-split waves-effect waves-float waves-light"
-                data-bs-toggle="dropdown"
-                aria-expanded="true"
-              >
+                data-bs-toggle="dropdown" aria-expanded="true">
                 <span class="visually-hidden"></span>
               </button>
-              <div
-                class="dropdown-menu dropdown-menu-end"
-                data-popper-placement="bottom-start"
-              >
-                <a
-                  @click="affixModal = true"
-                  class="dropdown-item"
-                  href="#"
-                  id="viewSignature"
-                  >My Signature</a
-                >
+              <div class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-start">
+                <a @click="affixModal = true" class="dropdown-item" href="#" id="viewSignature">My Signature</a>
                 <template v-if="plan == 'Business'">
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#" @click="sealModal = true"
-                    >My Seal</a
-                  >
-                  <a class="dropdown-item" href="#" @click="stampModal = true"
-                    >My Stamp</a
-                  >
+                  <a class="dropdown-item" href="#" @click="sealModal = true">My Seal</a>
+                  <a class="dropdown-item" href="#" @click="stampModal = true">My Stamp</a>
                 </template>
               </div>
             </div>
@@ -251,13 +143,9 @@
           <a class="nav-link nav-link-style">
             <button class="btn btn-sm btn-primary waves-effect" @click="cancel">
               Cancel
-            </button></a
-          >
+            </button></a>
         </li>
-        <li
-          class="nav-item d-none d-sm-block"
-          v-if="userDocument.is_the_owner_of_document === true"
-        >
+        <li class="nav-item d-none d-sm-block" v-if="userDocument.is_the_owner_of_document === true">
           <!-- <a class="nav-link nav-link-style">
             <button
               class="btn btn-sm btn-primary waves-effect waves-float waves-light"
@@ -272,22 +160,14 @@
     </div>
   </nav>
 
-  <div class="content-area-wrapper container-xxl p-0 mt-5 overflow-x-scroll">
-    <AsideLeft
-      :chunkFileId="pageId"
-      :isOpen="editSignerModal"
-      @close="editSignerModal = false"
-    />
+  <div class="content-area-wrapper container-xxl p-0 mt-5 overflow-x-scroll" style="position:static !important">
+    <AsideLeft :chunkFileId="pageId" :isOpen="editSignerModal" @close="editSignerModal = false" />
     <MainContent @docId="getDocId" @open="open" />
     <AsideRight />
   </div>
 
   <div class="fixed-bottom bg-white shadow-lg custom-sm">
-    <AsideBottom
-      :chunkFileId="pageId"
-      :isOpen="addParticipantModal"
-      @close="addParticipantModal = false"
-    />
+    <AsideBottom :chunkFileId="pageId" :isOpen="addParticipantModal" @close="addParticipantModal = false" />
   </div>
 
   <!-- <ModalComp :show="emailModal" :footer="false" @close="emailModal = false">
@@ -310,10 +190,7 @@
   <ModalComp :show="openNotificationModal" :size="'modal-sm'" :closeBtn="false">
     <template #header>
       <h4 class="modal-title text-success mb-0">
-        <Icon
-          icon="mdi:alert-circle-check-outline"
-          style="margin-bottom: 3px"
-        />
+        <Icon icon="mdi:alert-circle-check-outline" style="margin-bottom: 3px" />
         Alert
       </h4>
     </template>
@@ -326,12 +203,7 @@
         <div class="col-md-6 d-none">
           <div style="display: grid; place-items: center; height: 100%">
             <div class="fw-normal">
-              <img
-                src="@/assets/logo-dark.png"
-                width="150"
-                class="mb-2"
-                alt="Logo"
-              />
+              <img src="@/assets/logo-dark.png" width="150" class="mb-2" alt="Logo" />
               <h4 class="modal-title fw-bold mb-2">Awesome!</h4>
               <p class="modal-text fw-normal">
                 You document has successfully been sent to your signatories.
@@ -368,12 +240,7 @@
     </template>
   </ModalComp>
 
-  <ModalComp
-    :show="affixModal"
-    :footer="false"
-    :size="'modal-sm'"
-    @close="affixModal = false"
-  >
+  <ModalComp :show="affixModal" :footer="false" :size="'modal-sm'" @close="affixModal = false">
     <template #header>
       <h4 class="modal-title">My Signatures</h4>
     </template>
@@ -381,29 +248,13 @@
     <template #body>
       <div class="row">
         <div class="col-md-4 ms-auto">
-          <button
-            @click="updateModal"
-            class="float-end btn btn-outline-secondary btn-sm waves-effect"
-            id="updateSignature"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-edit"
-            >
-              <path
-                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-              ></path>
-              <path
-                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-              ></path>
+          <button @click="updateModal" class="float-end btn btn-outline-secondary btn-sm waves-effect"
+            id="updateSignature">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-edit">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
             </svg>
             Update
           </button>
@@ -416,11 +267,7 @@
     </template>
   </ModalComp>
 
-  <ModalComp
-    :show="updateSignatureModal"
-    :footer="false"
-    @close="updateSignatureModal = false"
-  >
+  <ModalComp :show="updateSignatureModal" :footer="false" @close="updateSignatureModal = false">
     <template #header>
       <h4 class="modal-title">Update your signature</h4>
     </template>
@@ -459,12 +306,7 @@
     </template>
   </ModalComp>
 
-  <ModalComp
-    :show="sealModal"
-    :footer="false"
-    :size="'modal-md'"
-    @close="sealModal = false"
-  >
+  <ModalComp :show="sealModal" :footer="false" :size="'modal-md'" @close="sealModal = false">
     <template #header>
       <h4 class="modal-title">My Seal</h4>
     </template>
@@ -472,26 +314,15 @@
     <template #body>
       <div class="row">
         <div class="col-md-4 ms-auto">
-          <button
-            @click="updateSeal"
-            class="float-end btn btn-outline-secondary btn-sm waves-effect"
-          >
-            <svg
-              width="21"
-              height="21"
-              xmlns="http://www.w3.org/2000/svg"
-              class="ml-auto tool-svg"
-              data-v-01cdeba4=""
-            >
+          <button @click="updateSeal" class="float-end btn btn-outline-secondary btn-sm waves-effect">
+            <svg width="21" height="21" xmlns="http://www.w3.org/2000/svg" class="ml-auto tool-svg" data-v-01cdeba4="">
               <g clip-path="url(#a)" data-v-01cdeba4="">
                 <path
                   d="M17.808 6.033c-.657-.657-.524-1.413-.54-1.516 0-3.099-3.284-3.075-3.288-3.077-.493 0-.957-.192-1.305-.54a3.08 3.08 0 0 0-4.351 0c-.657.657-1.413.523-1.516.54-3.099 0-3.075 3.284-3.077 3.288 0 .493-.192.956-.54 1.305a3.08 3.08 0 0 0 0 4.35c.348.35.54.813.54 1.306.002.004-.135 2.696 2.461 3.225V21l4.307-2.871L14.806 21v-6.086c2.68-.546 2.453-3.203 2.461-3.225 0-.493.192-.957.54-1.305a3.056 3.056 0 0 0 .902-2.176c0-.821-.32-1.594-.901-2.175ZM7.423 15.02c.339.075.65.245.9.496.434.433.974.721 1.561.84v.703L7.423 18.7v-3.679Zm3.691 2.039v-.703a3.055 3.055 0 0 0 1.56-.84c.252-.251.563-.42.902-.496v3.68l-2.462-1.641Zm5.824-7.547a3.056 3.056 0 0 0-.901 2.176c-.002.004.068 2.057-1.846 2.057-.093.016-1.34-.146-2.386.9-.35.35-.813.541-1.306.541-.493 0-.956-.192-1.305-.54-1.043-1.043-2.296-.885-2.386-.901-1.912 0-1.845-2.053-1.846-2.057 0-.822-.32-1.595-.901-2.176-.72-.72-.72-1.89 0-2.61a3.056 3.056 0 0 0 .9-2.175c.002-.004-.068-2.057 1.847-2.057.092-.017 1.339.146 2.386-.901.72-.72 1.89-.72 2.61 0a3.056 3.056 0 0 0 2.176.9c.004.002 2.057-.067 2.057 1.847.016.092-.146 1.339.9 2.386.35.349.541.812.541 1.305 0 .493-.192.957-.54 1.305Z"
-                  data-v-01cdeba4=""
-                ></path>
+                  data-v-01cdeba4=""></path>
                 <path
                   d="M10.5 3.69a4.312 4.312 0 0 0-4.308 4.306 4.312 4.312 0 0 0 4.307 4.307 4.312 4.312 0 0 0 4.307-4.307A4.312 4.312 0 0 0 10.5 3.69Zm0 7.383a3.08 3.08 0 0 1-3.077-3.077 3.08 3.08 0 0 1 3.076-3.076 3.08 3.08 0 0 1 3.077 3.076 3.08 3.08 0 0 1-3.077 3.077Z"
-                  data-v-01cdeba4=""
-                ></path>
+                  data-v-01cdeba4=""></path>
               </g>
               <defs data-v-01cdeba4="">
                 <clipPath id="a" data-v-01cdeba4="">
@@ -510,12 +341,7 @@
     </template>
   </ModalComp>
 
-  <ModalComp
-    :show="stampModal"
-    :footer="false"
-    :size="'modal-md'"
-    @close="stampModal = false"
-  >
+  <ModalComp :show="stampModal" :footer="false" :size="'modal-md'" @close="stampModal = false">
     <template #header>
       <h4 class="modal-title">My Stamp</h4>
     </template>
@@ -523,29 +349,12 @@
     <template #body>
       <div class="row">
         <div class="col-md-4 ms-auto">
-          <button
-            @click="updateStamp"
-            class="float-end btn btn-outline-secondary btn-sm waves-effect"
-          >
-            <svg
-              width="21"
-              height="12"
-              xmlns="http://www.w3.org/2000/svg"
-              class="ml-auto tool-svg"
-              data-v-01cdeba4=""
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M21 0H0v12h21V0Zm-.913 1H.913v10h19.174V1Z"
-                data-v-01cdeba4=""
-              ></path>
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M17.348 3H3.652v6h13.696V3Zm-.913 1H4.565v4h11.87V4Z"
-                data-v-01cdeba4=""
-              ></path>
+          <button @click="updateStamp" class="float-end btn btn-outline-secondary btn-sm waves-effect">
+            <svg width="21" height="12" xmlns="http://www.w3.org/2000/svg" class="ml-auto tool-svg" data-v-01cdeba4="">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M21 0H0v12h21V0Zm-.913 1H.913v10h19.174V1Z"
+                data-v-01cdeba4=""></path>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M17.348 3H3.652v6h13.696V3Zm-.913 1H4.565v4h11.87V4Z"
+                data-v-01cdeba4=""></path>
             </svg>
             Manage
           </button>
@@ -558,12 +367,7 @@
     </template>
   </ModalComp>
 
-  <ModalComp
-    :show="createStampModal"
-    :footer="false"
-    :size="'modal-md'"
-    @close="createStampModal = false"
-  >
+  <ModalComp :show="createStampModal" :footer="false" :size="'modal-md'" @close="createStampModal = false">
     <template #header>
       <h4 class="modal-title">Manage a stamp</h4>
     </template>
@@ -573,12 +377,7 @@
     </template>
   </ModalComp>
 
-  <ModalComp
-    :show="createSealModal"
-    :footer="false"
-    :size="'modal-lg'"
-    @close="createSealModal = false"
-  >
+  <ModalComp :show="createSealModal" :footer="false" :size="'modal-lg'" @close="createSealModal = false">
     <template #header>
       <h4 class="modal-title">Manage a seal</h4>
     </template>
@@ -588,11 +387,7 @@
     </template>
   </ModalComp>
 
-  <ModalComp
-    :show="cancelModal"
-    :size="'modal-sm'"
-    @close="cancelModal = false"
-  >
+  <ModalComp :show="cancelModal" :size="'modal-sm'" @close="cancelModal = false">
     <template #header>
       <h4 class="modal-title text-danger mb-0">
         <Icon icon="eva:alert-triangle-outline" style="margin-bottom: 3px" />
@@ -615,12 +410,7 @@
     </template>
   </ModalComp>
 
-  <ModalComp
-    :show="OTPFlag?.guest"
-    :size="'modal-sm'"
-    :footer="false"
-    :closeBtn="false"
-  >
+  <ModalComp :show="OTPFlag?.guest" :size="'modal-sm'" :footer="false" :closeBtn="false">
     <template #header>
       <h4 class="modal-title text-warning mb-0">
         <Icon icon="icomoon-free:notification" style="margin-bottom: 3px" />

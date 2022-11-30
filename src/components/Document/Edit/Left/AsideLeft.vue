@@ -331,42 +331,18 @@ const deleteParticipant = () => {
   removeParticipantModal.value = false;
 };
 
-function getOS() {
-  let userAgent = window.navigator.userAgent,
-    platform = window.navigator.platform,
-    macosPlatforms = ["Macintosh", "MacIntel", "MacPPC", "Mac68K"],
-    windowsPlatforms = ["Win32", "Win64", "Windows", "WinCE"],
-    iosPlatforms = ["iPhone", "iPad", "iPod"],
-    os = null;
-  if (macosPlatforms.indexOf(platform) !== -1) {
-    os = "Mac OS";
-  } else if (iosPlatforms.indexOf(platform) !== -1) {
-    os = "iOS";
-  } else if (windowsPlatforms.indexOf(platform) !== -1) {
-    os = "Windows";
-  } else if (/Android/.test(userAgent)) {
-    os = "Android";
-  } else if (/Linux/.test(platform)) {
-    os = "Linux";
-  }
-  return os;
-}
-const hasOS = ref("");
-hasOS.value = getOS();
-
 const addMouseMoveListener = (params) => {
   tempData.value = true;
   let count = 1;
   tempStorage.value = params;
-  let customValue = hasOS.value == "Mac OS" ? 26 : 70;
   $(document).bind("mousemove", function (e) {
     count = count + 1;
     tool_id.value = count;
     $("." + params.toolId).attr("id", count);
     $("." + params.toolId).css({
       display: "block",
-      left: e.pageX - customValue,
-      top: e.pageY - 164,
+      left: e.pageX + 2,
+      top: e.pageY - 1,
     });
   });
 };
@@ -378,8 +354,8 @@ $(document).on("click", "#mainWrapper", function (e) {
 
   let posX = $(this).offset().left;
   let posY = $(this).offset().top;
-  let x = e.pageX - posX;
-  let y = e.pageY - posY;
+  let x = e.pageX - posX + 2;
+  let y = e.pageY - posY - 5;
 
   const toolName = tempStorage.value.tool_name;
   if (toolName == "Sign" || toolName == "Initial") {

@@ -73,29 +73,42 @@ export const UNSET_SCHEDULE_LOADER = (state) => {
 //stage one (document title and upload file)
 export const SET_SCHEDULE_FORMDATA_1 = (state, payload) => {
   // console.log(payload);
+  state.schedule_formdata.temDocData.push(payload.temDocData); // ? This is just for the UI 
   state.schedule_formdata.documentFile.push(payload.documentFile);
   state.schedule_formdata.title = payload.title;
   state.schedule_formdata.documentTitle = payload.documentTitle;
 };
+
 export const UNSET_SCHEDULE_FORMDATA_1 = (state) => {
+  state.schedule_formdata.title = null;
   state.schedule_formdata.documentTitle = null;
   state.schedule_formdata.documentFile = [];
+  state.schedule_formdata.temDocData = [];
 };
+
+export const DELETE_SCHEDULE_FORMDATA_1 = (state, index) => {
+  state.schedule_formdata.temDocData.splice(index, 1);
+  state.schedule_formdata.documentFile.splice(index, 1);
+};
+
 //stage two (add and edit participants)
 export const SET_SCHEDULE_FORMDATA_2 = (state, payload) => {
   const Exists = state.schedule_formdata.participants.filter((participant) => {
     return payload.email == participant.email;
   });
+
   if (Exists.length == 0) {
     state.schedule_formdata.participants.push(payload);
   }
 };
+
 export const UNSET_SCHEDULE_FORMDATA_2 = (state, id) => {
   state.schedule_formdata.participants =
     state.schedule_formdata.participants.filter((participant) => {
       return id != participant.id;
     });
 };
+
 //stage two (invite notary, select schedule type, time and date)
 export const SET_SCHEDULE_FORMDATA_3 = (state, payload) => {
   state.schedule_formdata.schedule_type = payload.schedule_type;

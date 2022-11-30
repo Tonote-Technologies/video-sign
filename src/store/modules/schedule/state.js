@@ -5,6 +5,7 @@ export default {
   schedule_formdata: {
     title: null,
     documentTitle: null,
+    temDocData: [],
     documentFile: [],
     participants: [],
     schedule_type: null, //immediate or schedule

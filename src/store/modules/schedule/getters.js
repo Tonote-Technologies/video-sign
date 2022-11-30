@@ -2,9 +2,11 @@
 export const time_slots = (state) => {
   return state.time_slots;
 };
+
 export const country = (state) => {
   return state.country;
 };
+
 export const states = (state) => {
   return state.states;
 };

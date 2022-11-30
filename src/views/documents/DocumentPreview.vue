@@ -12,16 +12,8 @@
                 </button>
               </div>
             </div>
-            <div
-              v-for="(doc, index) in userDocument.documentUploads"
-              :key="index"
-              class="position-relative border"
-            >
-              <RenderPage
-                :file="doc.file_url"
-                @click="$emit('docId', doc.id)"
-                @documentHeight="getHeight"
-              />
+            <div v-for="(doc, index) in userDocument.documentUploads" :key="index" class="position-relative border">
+              <RenderPage :file="doc.file_url" @click="$emit('docId', doc.id)" @documentHeight="getHeight" />
             </div>
           </div>
           <div class="col-lg-5">
@@ -30,10 +22,7 @@
                 <div class="d-flex justify-content-between mb-2">
                   <h3>Participants</h3>
                   <div>
-                    <button
-                      class="btn btn-sm btn-primary"
-                      @click="addParticipantModal"
-                    >
+                    <button class="btn btn-sm btn-primary" @click="addParticipantModal">
                       <Icon icon="akar-icons:plus" /> Add
                     </button>
                   </div>
@@ -48,25 +37,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr
-                        v-for="(
+                      <tr v-for="(
                           participant, index
-                        ) in userDocument.participants"
-                        :key="index"
-                      >
+                        ) in userDocument.participants" :key="index">
                         <td>
                           {{
-                            participant.user.first_name +
-                            " " +
-                            participant.user.last_name
+                          participant.user.first_name +
+                          " " +
+                          participant.user.last_name
                           }}
                         </td>
                         <td>{{ participant.user.email }}</td>
                         <td>
-                          <button
-                            class="btn btn-sm btn-outline-danger"
-                            @click="remove(participant.id)"
-                          >
+                          <button class="btn btn-sm btn-outline-danger" @click="remove(participant.id)">
                             <Icon icon="codicon:trash" /> Remove
                           </button>
                         </td>
@@ -78,12 +61,7 @@
             </div>
           </div>
 
-          <ModalComp
-            :show="openModal"
-            :size="'modal-lg'"
-            :footer="true"
-            @close="openModal = false"
-          >
+          <ModalComp :show="openModal" :size="'modal-lg'" :footer="true" @close="openModal = false">
             <template #header>
               <h5 class="modal-title">Replace Document</h5>
             </template>
@@ -94,22 +72,14 @@
             </template>
 
             <template #footer>
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click="questionModal = false"
-              >
+              <button type="button" class="btn btn-primary" @click="questionModal = false">
                 Repalce
               </button>
             </template>
           </ModalComp>
 
-          <ModalComp
-            :show="openAddParticipantModal"
-            :size="'modal-lg'"
-            :footer="false"
-            @close="openAddParticipantModal = false"
-          >
+          <ModalComp :show="openAddParticipantModal" :size="'modal-lg'" :footer="false"
+            @close="openAddParticipantModal = false">
             <template #header>
               <h5 class="modal-title">Add Participants</h5>
             </template>
@@ -120,17 +90,10 @@
             </template>
           </ModalComp>
 
-          <ModalComp
-            :show="removeParticipantModal"
-            :size="'modal-sm'"
-            @close="removeParticipantModal = false"
-          >
+          <ModalComp :show="removeParticipantModal" :size="'modal-sm'" @close="removeParticipantModal = false">
             <template #header>
               <h4 class="text-danger mb-0">
-                <Icon
-                  icon="eva:alert-triangle-outline"
-                  style="margin-bottom: 3px"
-                />
+                <Icon icon="eva:alert-triangle-outline" style="margin-bottom: 3px" />
                 Alert
               </h4>
             </template>
@@ -141,10 +104,7 @@
             </template>
             <template #footer>
               <div class="d-flex justify-content-end align-items-center">
-                <button
-                  class="btn btn-sm btn-outline-danger"
-                  @click="deleteParticipant"
-                >
+                <button class="btn btn-sm btn-outline-danger" @click="deleteParticipant">
                   Yes Remove
                 </button>
               </div>

@@ -2,6 +2,7 @@ import Document from "@/api/Document";
 import Tool from "@/api/Tool";
 import router from "@/router/router";
 import { useToast } from "vue-toast-notification";
+
 const toast = useToast();
 
 export const getUserDocuments = ({ commit }, token) => {
@@ -14,7 +15,6 @@ export const getUserDocuments = ({ commit }, token) => {
       }
     });
 };
-
 
 export const getSessionRecords = ({ commit }, token) => {
   Document.showSessionRecord(token)
@@ -43,7 +43,6 @@ export const getSessionRecordToday = ({ commit }, token) => {
       }
     });
 };
-
 
 export const getUserDocumentByStatus = ({ commit }, formData) => {
   Document.allDocumentByStatus(formData)

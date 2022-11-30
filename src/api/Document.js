@@ -74,6 +74,9 @@ export default {
     return Api.delete(`${DOCUMENT_PARTICIPANTS}/${participantId}`);
   },
 
+  storeTools(data) {
+    return Api.post(DOCUMENT_RESOURCE_TOOLS, data);
+  },
 
   updateTool(id, data) {
     return Api.put(`${DOCUMENT_RESOURCE_TOOLS}/${id}`, data);

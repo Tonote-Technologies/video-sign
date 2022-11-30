@@ -17,47 +17,25 @@
 
         <div class="col-xl-12 col-md-10 col-12 my-2">
           <div>
-            <div
-              class="mx-2 progress__box d-flex justify-content-between align-items-center m-auto"
-            >
-              <div
-                class="progress__bar"
-                :style="{ width: progressWidth }"
-              ></div>
+            <div class="mx-2 progress__box d-flex justify-content-between align-items-center m-auto">
+              <div class="progress__bar" :style="{ width: progressWidth }"></div>
               <div class="progress__bar2"></div>
-              <div
-                class="d-flex flex-column align-items-center"
-                v-for="(step, index) in steps"
-                :key="index"
-              >
-                <button
-                  class="btn progress__btn"
-                  :class="
-                    step.step <= currentstep
-                      ? 'progress__success'
-                      : 'progress__default'
-                  "
-                >
-                  <Icon
-                    :icon="
-                      step.step < currentstep || completed
-                        ? 'fa6-solid:check'
-                        : step.icon
-                    "
-                    :height="40"
-                    :width="40"
-                  />
+              <div class="d-flex flex-column align-items-center" v-for="(step, index) in steps" :key="index">
+                <button class="btn progress__btn" :class="
+                  step.step <= currentstep
+                    ? 'progress__success'
+                    : 'progress__default'
+                ">
+                  <Icon :icon="
+                    step.step < currentstep || completed
+                      ? 'fa6-solid:check'
+                      : step.icon
+                  " :height="40" :width="40" />
                 </button>
               </div>
             </div>
-            <div
-              class="progress__description d-flex justify-content-between align-items-center m-auto mt-1"
-            >
-              <h6
-                :class="step.step <= currentstep ? 'text-primary' : ''"
-                v-for="(step, index) in steps"
-                :key="index"
-              >
+            <div class="progress__description d-flex justify-content-between align-items-center m-auto mt-1">
+              <h6 :class="step.step <= currentstep ? 'text-primary' : ''" v-for="(step, index) in steps" :key="index">
                 {{ step.title }}
               </h6>
             </div>
@@ -65,10 +43,7 @@
             <div class="card my-2">
               <div class="card-body px-1">
                 <!-- Component changes when currentTab changes -->
-                <component
-                  @current="proceed"
-                  :is="steps[currentstep].component"
-                ></component>
+                <component @current="proceed" :is="steps[currentstep].component"></component>
               </div>
             </div>
           </div>
@@ -145,9 +120,11 @@ export default {
 .progress__box {
   position: relative;
 }
+
 .progress__success {
   background-color: #003bb3;
 }
+
 .progress__default {
   background-color: #cbcbcb;
 }
@@ -164,6 +141,7 @@ export default {
   transform: translateY(-50%);
   transition: 0.4s ease;
 }
+
 .progress__bar2 {
   content: "";
   position: absolute;
@@ -188,7 +166,8 @@ export default {
   color: #ffffff;
   padding: 10px;
 }
-.progress__description {
-  /* margin: 10px; */
-}
+
+/* .progress__description {
+  margin: 10px;
+} */
 </style>
