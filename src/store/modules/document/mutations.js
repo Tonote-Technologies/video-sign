@@ -34,11 +34,3 @@ export const SET_EDIT_RESOURCE_TOOL = (state, edit) => {
 export const SET_MESSAGE = (state, msg) => {
   state.message = msg;
 };
-
-export const SET_SESSION_RECORD = (state, doc) => {
-  state.sessionRecord = doc;
-};
-
-export const SET_SESSION_RECORD_TODAY = (state, doc) => {
-  state.sessionRecordToday = doc;
-};

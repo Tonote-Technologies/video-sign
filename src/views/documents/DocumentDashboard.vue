@@ -33,9 +33,9 @@
             <div class="col-3 d-flex align-items-center justify-content-end">
               <div class="btn btn-sm btn-light text-center rounded-pill" style="font-size: 16px">
                 {{
-                countNotaryRequest?.length > 0
-                ? countNotaryRequest?.length
-                : 0
+                    countNotaryRequest?.length > 0
+                      ? countNotaryRequest?.length
+                      : 0
                 }}
               </div>
             </div>
@@ -170,10 +170,10 @@
 import AffidavitRequest from "@/views/documents/folders/AffidavitRequest";
 import NotaryRequest from "@/views/documents/folders/NotaryRequest";
 import VideoSign from "@/views/documents/folders/VideoSign";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
-import { useActions, useGetters } from "vuex-composition-helpers/dist";
+import { useGetters } from "vuex-composition-helpers/dist";
 
 const uri = ref("");
 const route = useRouter();
@@ -181,48 +181,33 @@ const isAffidavitActive = ref(false);
 const isActive = ref(false);
 const isNotaryActive = ref(false);
 
-const { token, allSessionRecord, affidavits } = useGetters({
-  token: "auth/token",
-  allSessionRecord: "document/allSessionRecord",
+const { allSessionRecord, affidavits } = useGetters({
+  allSessionRecord: "schedule/allSessionRecord",
   affidavits: "schedule/affidavits",
 });
 
-const { getSessionRecords } = useActions({
-  getSessionRecords: "document/getSessionRecords",
+// const { getSessionRecords } = useActions({
+//   getSessionRecords: "schedule/getSessionRecords",
+// });
+
+const countAffidavit = computed(() => {
+  return affidavits.value?.filter((respond) => respond.type === "Request Affidavit");
 });
 
-const tableRecord = ref([]);
-const countAffidavit = ref([]);
-const countNotaryRequest = ref([]);
-
-affidavits.value.filter((respond) => {
-  if (respond.type === "Request Affidavit") {
-    countAffidavit.value.push(respond);
-  }
+const countNotaryRequest = computed(() => {
+  return affidavits.value?.filter((respond) => respond.type === "Request A Notary");
 });
 
-affidavits.value.filter((respond) => {
-  if (respond.type === "Request A Notary") {
-    countNotaryRequest.value.push(respond);
-  }
-});
-
-allSessionRecord.value.filter((respond) => {
-  if (respond.entry_point === "Video") {
-    tableRecord.value.push(respond);
-  }
+const tableRecord = computed(() => {
+  return allSessionRecord.value.filter((respond) => respond.entry_point === "Video");
 });
 
 onMounted(() => {
-  getSessionRecords(token.value);
-
   uri.value = route.currentRoute.value.query;
 
   isAffidavitActive.value = uri.value.page === undefined ? true : false;
-
   isNotaryActive.value = uri.value.page === "notary-request" ? true : false;
   isActive.value = uri.value.page === "video-sign" ? true : false;
-
 });
 </script>
 

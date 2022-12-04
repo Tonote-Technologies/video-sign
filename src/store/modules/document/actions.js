@@ -16,34 +16,6 @@ export const getUserDocuments = ({ commit }, token) => {
     });
 };
 
-export const getSessionRecords = ({ commit }, token) => {
-  Document.showSessionRecord(token)
-    .then((response) => {
-      // console.log("All Data:", response.data.data);
-      commit("SET_SESSION_RECORD", response.data.data);
-    })
-    .catch((error) => {
-      if (error.response.status === 401 || error.response.status == 422) {
-        commit("SET_TOKEN", null);
-        router.push({ name: "Login" });
-      }
-    });
-};
-
-export const getSessionRecordToday = ({ commit }, token) => {
-  Document.showSessionRecordToday(token)
-    .then((response) => {
-      // console.log("All Today:", response.data);
-      commit("SET_SESSION_RECORD_TODAY", response.data);
-    })
-    .catch((error) => {
-      if (error.response.status === 401 || error.response.status == 422) {
-        commit("SET_TOKEN", null);
-        router.push({ name: "Login" });
-      }
-    });
-};
-
 export const getUserDocumentByStatus = ({ commit }, formData) => {
   Document.allDocumentByStatus(formData)
     .then((response) => {
@@ -227,7 +199,6 @@ export const resourceTools = ({ commit }, formData) => {
     })
     .catch((error) => {
       console.log(error.response);
-      // return window.location.reload();
     });
 };
 

@@ -47,10 +47,13 @@ const { start: progressStart, stop: progressStop } = progressFns();
 
 const parseJwt = (token) => {
   const decode = JSON.parse(atob(token.split('.')[1]));
+
   if (decode.exp * 1000 < new Date().getTime()) {
-    console.log('Time Expired');
-    window.localStorage.removeItem('vuex');
+    if (process.env.NODE_ENV == 'development') {
+      console.log('Time Expired');
+    }
     router.push({ name: "Login" });
+    window.localStorage.removeItem('vuex');
   }
 };
 
@@ -94,7 +97,13 @@ Api.interceptors.response.use(
     //   router.push({ name: "Login" });
     // }
 
-    console.log(error.response.statusText);
+    if (process.env.NODE_ENV == 'development') {
+      console.log(error.response);
+    }
+    if (error.response == undefined) {
+      window.localStorage.removeItem('vuex');
+      router.push({ name: "Login" });
+    }
 
     return Promise.reject(error);
   }

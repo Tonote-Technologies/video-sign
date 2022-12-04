@@ -25,13 +25,3 @@ export const toolWithAsset = (state) => {
 export const isOpenModal = (state) => {
   return state.isOpenModal;
 };
-
-
-export const allSessionRecord = (state) => {
-  return state.sessionRecord;
-};
-
-export const allSessionRecordToday = (state) => {
-  return state.sessionRecordToday;
-};
-

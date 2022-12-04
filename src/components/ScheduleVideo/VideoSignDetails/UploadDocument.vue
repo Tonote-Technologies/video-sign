@@ -24,9 +24,7 @@
           </label>
         </template>
       </div>
-      <p class="fw-bolder text-dark">
-        Up to 20 files, Max 2 MB each.
-      </p>
+      <p class="fw-bolder text-dark">Up to 20 files, Max 2 MB each.</p>
 
       <!-- <input type="file" name="file-input" id="file-input" class="file-input__input" accept=".pdf" multiple
         @change="handleImageUpload" />
@@ -51,7 +49,7 @@
               <a href="javascript:void(0)" class="text-muted fw-bold" data-dz-name></a>
               <p class="mb-0" data-dz-size>
                 {{ temp.name }} | Size:
-                <span :class="[temp.size > 2097152 ? 'text-danger' : 'text-success',]">
+                <span :class="[temp.size > 2097152 ? 'text-danger' : 'text-success']">
                   {{ temp.size }}
                 </span>
               </p>
@@ -66,8 +64,9 @@
         </div>
       </div>
       You already have {{ schedule_formdata.documentFile?.length }} document(s) uploaded,
-      kindly click on <a role="button" class="text-primary fw-bold text-underline" @click="deleteImage">clear</a> to
-      remove uploaded files or click on next to continue
+      kindly click on
+      <a role="button" class="text-primary fw-bold text-underline" @click="deleteImage">clear</a>
+      to remove uploaded files or click on next to continue
     </template>
     <template v-else>
       <div class="card mb-1 mb-0 shadow-none border" v-for="(temp, index) in schedule_formdata.temDocData" :key="index">
@@ -80,7 +79,7 @@
               <a href="javascript:void(0)" class="text-muted fw-bold" data-dz-name></a>
               <p class="mb-0" data-dz-size>
                 {{ temp.name }} | Size:
-                <span :class="[temp.size > 2097152 ? 'text-danger' : 'text-success',]">
+                <span :class="[temp.size > 2097152 ? 'text-danger' : 'text-success']">
                   {{ temp.size }}
                 </span>
               </p>
@@ -115,7 +114,7 @@
 </template>
 <script>
 import { Icon } from "@iconify/vue";
-import DropZone from '@/components/DropZone.vue';
+import DropZone from "@/components/DropZone.vue";
 // import { toRaw } from "vue";
 import store from "@/store";
 export default {
@@ -127,24 +126,27 @@ export default {
       previewFile: [],
       initialUpload: false,
       isSelected: false,
-      dropzoneFile: '',
+      dropzoneFile: "",
       documentFile: false,
       documentTitle: null,
       title: null,
       step: 0,
     };
   },
+
   computed: {
     schedule_formdata() {
       return store.getters["schedule/schedule_formdata"];
     },
   },
+
   methods: {
     deleteImage() {
       let file = document.querySelector("input[type=file]");
       file.value = null;
       store.commit("schedule/UNSET_SCHEDULE_FORMDATA_1");
     },
+
     removeItem(index) {
       this.previewFile.splice(index, 1);
       this.dataFile.splice(index, 1);
@@ -154,6 +156,7 @@ export default {
         this.initialUpload = this.isSelected = false;
       }
     },
+
     preparedFile(files) {
       let docTitle = files[0].name.split(".").slice(0, -1).join(".");
       function formatBytes(bytes, decimals = 2) {
@@ -174,10 +177,11 @@ export default {
           this.dataFile.push(reader.result);
           this.previewFile.push({ file: params, size: fileSize });
           this.temData.push({ name: fileName, size: fileSize });
-          console.log(reader.result)
-          console.log(params.file)
+
           store.commit("schedule/SET_SCHEDULE_FORMDATA_1", {
-            title: !this.schedule_formdata.title?.length ? docTitle : this.schedule_formdata.title,
+            title: !this.schedule_formdata.title?.length
+              ? docTitle
+              : this.schedule_formdata.title,
             documentTitle: docTitle,
             documentFile: reader.result,
             temDocData: { name: fileName, size: fileSize },
@@ -185,8 +189,8 @@ export default {
         };
         reader.readAsDataURL(params);
       }
-      console.log('Uploaded files:', docTitle)
     },
+
     drop(e) {
       this.initialUpload = true;
       let dropFiles = (this.dropzoneFile = e.dataTransfer.files);
@@ -194,6 +198,7 @@ export default {
       this.preparedFile(dropFiles);
       this.isSelected = true;
     },
+
     selectedFile(e, init) {
       this.initialUpload = init;
       let dropFiles = (this.dropzoneFile = e.target.files);
@@ -201,6 +206,7 @@ export default {
       this.preparedFile(dropFiles);
       this.isSelected = true;
     },
+
     handleImageUpload() {
       const file = document.querySelector("input[type=file]").files[0];
       const reader = new FileReader();
@@ -212,16 +218,10 @@ export default {
           documentTitle: file.name,
           documentFile: reader.result,
         });
-        // console.log({
-        //   title: !this.schedule_formdata.title?.length
-        //     ? file.name
-        //     : this.schedule_formdata.title,
-        //   documentTitle: file.name,
-        //   documentFile: reader.result,
-        // });
       };
       reader.readAsDataURL(file);
     },
+
     proceed() {
       this.$emit("current", this.step + 1);
     },

@@ -1,7 +1,63 @@
 import Vue from "vue";
 import Schedule from "@/api/Schedule";
 import store from "@/store";
-// import router from "@/router/router";
+import router from "@/router/router";
+import { useToast } from "vue-toast-notification";
+
+const toast = useToast();
+
+
+export const getSessionRecords = ({ commit }, token) => {
+  Schedule.showSessionRecord(token)
+    .then((response) => {
+      commit("SET_SESSION_RECORD", response.data.data);
+    })
+    .catch((error) => {
+      if (error.response.status === 401 || error.response.status == 422) {
+        commit("SET_TOKEN", null);
+        router.push({ name: "Login" });
+      }
+    });
+};
+
+export const getSessionRecordToday = ({ commit }, token) => {
+  Schedule.showSessionRecordToday(token)
+    .then((response) => {
+      commit("SET_SESSION_RECORD_TODAY", response.data);
+    })
+    .catch((error) => {
+      if (error.response.status === 401 || error.response.status == 422) {
+        commit("SET_TOKEN", null);
+        router.push({ name: "Login" });
+      }
+    });
+};
+
+export const rescheduleSession = ({ commit }, sessionData) => {
+  Schedule.RescheduleVirtualSession(sessionData)
+    .then((response) => {
+      const token = store.getters["auth/token"];
+      Schedule.showSessionRecord(token)
+        .then((res) => {
+          console.log(res.data.data);
+          commit("SET_SESSION_RECORD", res.data.data);
+        })
+
+      commit("SET_RESCHEDULE_SESSION", response.data.data);
+
+      toast.success("Session has been rescheduled successfully", {
+        timeout: 5000,
+        position: "top-right",
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response.status == 401 || error.response.status == 404) {
+        commit("SET_RESCHEDULE_SESSION", null);
+        Vue.$toast.error(`${error.response.data.errors.root}`);
+      }
+    });
+};
 
 export const TimeSlotsAction = ({ commit, state }) => {
   if (state?.time_slots?.length === 0) {

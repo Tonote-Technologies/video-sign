@@ -113,11 +113,13 @@ export const setAuthentication = ({ commit }, data) => {
 };
 
 export const setAuthForDocumentUpload = ({ commit }, token) => {
+  commit("SET_LOADER", true);
   commit("SET_TOKEN", token);
   commit("SET_TOKEN_TYPE", "Bearer");
   User.show().then((response) => {
     commit("SET_USER_PROFILE", response.data.data);
-    router.push({ name: "document.upload" });
+    commit("SET_LOADER", false);
+    router.push({ name: "document.video" });
   });
 };
 

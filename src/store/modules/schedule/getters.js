@@ -1,3 +1,14 @@
+export const allSessionRecord = (state) => {
+  return state.sessionRecord;
+};
+
+export const allSessionRecordToday = (state) => {
+  return state.sessionRecordToday;
+};
+
+export const getRescheduled = (state) => {
+  return state.rescheduleSession;
+};
 
 export const time_slots = (state) => {
   return state.time_slots;

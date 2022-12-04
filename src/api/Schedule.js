@@ -1,6 +1,16 @@
 import Api from "./Api";
+const REQUEST_VIRTUAL_SESSION = "request-virtual-session";
+const REQUEST_VIRTUAL_SESSION_TODAY = "request-virtual-session-today";
 
 export default {
+  showSessionRecord(token) {
+    return Api.get(`${REQUEST_VIRTUAL_SESSION}?entry_point=Video`, token);
+  },
+
+  showSessionRecordToday(token) {
+    return Api.get(`${REQUEST_VIRTUAL_SESSION_TODAY}?entry_point=Video`, token);
+  },
+
   // get all the time slots
   TimeSlotsApi() {
     return Api.get(`time-slots`);
@@ -22,6 +32,10 @@ export default {
 
   //request virtual notary session
   ScheduleVirtualSessionUpdateStatus(data) {
+    return Api.put(`request-virtual-session/${data.id}`, data.payload);
+  },
+
+  RescheduleVirtualSession(data) {
     return Api.put(`request-virtual-session/${data.id}`, data.payload);
   },
 

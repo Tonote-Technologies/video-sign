@@ -22,12 +22,9 @@
               <td>{{ index + 1 }}</td>
               <td>{{ data.title }}</td>
               <td>
-                <span
-                  class="badge rounded-pill me-1"
-                  :class="[
-                    data.status == 'Awaiting' ? 'bg-warning' : 'bg-success',
-                  ]"
-                >
+                <span class="badge rounded-pill me-1" :class="[
+                  data.status == 'Awaiting' ? 'bg-warning' : 'bg-success',
+                ]">
                   {{ data.status }}
                 </span>
               </td>
@@ -36,15 +33,9 @@
               <td>
                 <template v-if="data.status == 'Completed'">
                   <div class="dropdown">
-                    <a
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      ><Icon
-                        icon="oi:ellipses"
-                        :rotate="1"
-                        :verticalFlip="true"
-                      />
+                    <a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <Icon icon="oi:ellipses" :rotate="1" :verticalFlip="true" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" style="">
                       <div class="dropdown-item">
@@ -86,4 +77,6 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

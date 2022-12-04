@@ -21,3 +21,7 @@ export const SET_FLAG = (state, flag) => {
 export const SET_RESEND_OTP = (state, resend) => {
   state.resendOTP = resend;
 };
+
+export const SET_LOADER = (state, loader) => {
+  state.isLoading = loader;
+};

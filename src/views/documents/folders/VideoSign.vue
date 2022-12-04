@@ -6,9 +6,8 @@
           <div class="card-body">
             <h3 class="">Next Scheduled Meeting Today</h3>
             <!-- <p>You have no scheduled meeting for today</p> -->
-            <!-- {{ nextMeeting.length }} -->
-            <template v-if="nextMeeting.length > 0">
-              <template v-for="(result, index) in nextMeeting" :key="index">
+            <template v-if="filterDocByNextMeeting.length > 0">
+              <template v-for="(result, index) in filterDocByNextMeeting" :key="index">
                 <div class="border-bottom py-1 d-flex justify-content-between">
                   <div>
                     <div class="h5">Title: {{ result.title }}</div>
@@ -62,7 +61,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(result, index) in tableRecord" :key="index">
+                  <tr v-for="(result, index) in filterDocByVideo" :key="index">
                     <!-- <template v-if="result.entry_point === 'Video'"> -->
                     <td>{{ ++index }}</td>
 
@@ -127,7 +126,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                           <template v-if="result.status != 'completed'">
-                            <div @click="openModal()" class="dropdown-item">
+                            <div @click="openSessionModal(result.id)" class="dropdown-item">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-edit font-small-4 me-50">
@@ -155,7 +154,7 @@
                       <div class="d-none">
                         <template v-if="result.status != 'completed'">
                           <div class="text-center w-100">
-                            <button @click="openModal()"
+                            <button @click="openSessionModal(result.id)"
                               class="btn btn-outline-warning btn-sm waves-effect waves-float center-block">
                               <Icon icon="healthicons:i-schedule-school-date-time-outline" />
                               Reschedule
@@ -191,7 +190,7 @@
       </div>
     </div>
 
-    <ModalComp :show="questionModal" :size="modal - sm" :footer="true" :closeBtn="true" @close="questionModal = false">
+    <ModalComp :show="questionModal" :size="modal - sm" :footer="false" :closeBtn="true" @close="questionModal = false">
       <template #header>
         <h5 class="modal-title">Reschedule Session</h5>
       </template>
@@ -199,24 +198,28 @@
       <template #body>
         <p class="text-center">Change your schedule below</p>
         <div class="my-2">
-          <form>
-            <div class="form-group">
+          <form @submit.prevent="submitReschedule">
+            <div class="form-group mb-2">
               <label>Date</label>
-              <input type="date" class="form-control" />
+              <input type="date" v-model="reschedule.date" class="form-control" />
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-4">
               <label>Time</label>
-              <input type="time" class="form-control" />
+              <select v-model="reschedule.start_time" class="form-select">
+                <option v-for="(time, index) in time_slots" :key="time + index" :value="time">
+                  {{ time }}
+                </option>
+              </select>
+            </div>
+
+            <div class="modal-footer px-0 pb-0">
+              <button type="submit" class="btn btn-primary">
+                Submit
+              </button>
             </div>
           </form>
         </div>
-      </template>
-
-      <template #footer>
-        <button type="button" class="btn btn-primary" @click="questionModal = false">
-          Submit
-        </button>
       </template>
     </ModalComp>
   </div>
@@ -224,7 +227,7 @@
 
 <script setup>
 import { request } from "../data.js";
-import { ref, onMounted, onUpdated } from "vue";
+import { ref, onMounted, onUpdated, computed } from "vue";
 import { Icon } from "@iconify/vue";
 import { useActions, useGetters } from "vuex-composition-helpers/dist";
 import ModalComp from "@/components/ModalComp.vue";
@@ -240,15 +243,18 @@ const dateTime = (date) => {
 };
 
 
-const { token, allSessionRecord, allSessionRecordToday } = useGetters({
+const { token, allSessionRecord, allSessionRecordToday, time_slots } = useGetters({
   token: "auth/token",
-  allSessionRecord: "document/allSessionRecord",
-  allSessionRecordToday: "document/allSessionRecordToday",
+  allSessionRecord: "schedule/allSessionRecord",
+  allSessionRecordToday: "schedule/allSessionRecordToday",
+  getRescheduled: "schedule/getRescheduled",
+  time_slots: "schedule/time_slots",
 });
 
-const { getSessionRecords, getSessionRecordToday, getUserDocument } = useActions({
-  getSessionRecords: "document/getSessionRecords",
-  getSessionRecordToday: "document/getSessionRecordToday",
+const { getSessionRecords, getSessionRecordToday, rescheduleSession, getUserDocument } = useActions({
+  getSessionRecords: "schedule/getSessionRecords",
+  getSessionRecordToday: "schedule/getSessionRecordToday",
+  rescheduleSession: "schedule/rescheduleSession",
   getUserDocument: "document/getUserDocument",
 });
 
@@ -257,49 +263,39 @@ data.value = request;
 
 const questionModal = ref(false);
 
-const openModal = () => {
+const sessionId = ref('')
+const openSessionModal = (id) => {
+  sessionId.value = id
   questionModal.value = true;
 };
-const tableRecord = ref([]);
+
+const reschedule = ref({})
+const submitReschedule = () => {
+  let formData = { id: sessionId.value, payload: reschedule.value }
+  rescheduleSession(formData)
+  questionModal.value = false
+  reschedule.value = {}
+}
+
 
 const getDocument = (params) => {
-  console.log(params.id)
   getUserDocument(params.id);
 };
 
-const fetchAllRecord = () => {
-  allSessionRecordToday.value.filter((res) => {
-    if (res.entry_point === "Video" && res.immediate == false) {
-      nextMeeting.value.push(res);
-    } else {
-      nextMeeting.value = [];
-    }
-  });
-};
+const filterDocByVideo = computed(() => {
+  return allSessionRecord.value.filter((respond) => respond.entry_point === "Video");
+});
 
-const fetchTodaysRecord = () => {
-  allSessionRecord.value.filter((respond) => {
-    if (respond.entry_point === "Video") {
-      tableRecord.value.push(respond);
-    }
-  });
-};
+const filterDocByNextMeeting = computed(() => {
+  return allSessionRecordToday.value.filter((res) => res.entry_point === "Video" && res.immediate == false);
+});
+
 onMounted(() => {
   getSessionRecords(token.value);
   getSessionRecordToday(token.value);
-
-  setTimeout(() => {
-    console.log('Fetched!')
-    fetchTodaysRecord();
-    fetchAllRecord();
-  }, 1000);
 });
 
-const nextMeeting = ref([]);
-
 onUpdated(() => {
-  // fetchTodaysRecord();
-  // theId.value = dashboard.value.status;
   setTimeout(() => {
     if ($.fn.dataTable.isDataTable("#allrecord")) {
       $("#allrecord").DataTable();
@@ -307,7 +303,7 @@ onUpdated(() => {
       if (allSessionRecord.value.length > 0) {
         $("#allrecord").DataTable({
           columnDefs: [{ orderable: false, targets: [0, 6] }],
-          // order: [[3, "desc"]],
+          order: [[3, "desc"]],
           aaSorting: [],
           lengthMenu: [
             [5, 10, 25, 50, -1],

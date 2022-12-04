@@ -1,3 +1,15 @@
+export const SET_SESSION_RECORD = (state, doc) => {
+  state.sessionRecord = doc;
+};
+
+export const SET_SESSION_RECORD_TODAY = (state, doc) => {
+  state.sessionRecordToday = doc;
+};
+
+export const SET_RESCHEDULE_SESSION = (state, payload) => {
+  state.rescheduleSession = payload;
+};
+
 export const SET_SCHEDULE_TIME_SLOTS = (state, payload) => {
   state.time_slots = payload;
 };
@@ -127,6 +139,7 @@ export const CLEAR_SCHEDULE_FORMDATA = (state) => {
   state.schedule_formdata.title = null;
   state.schedule_formdata.documentTitle = null;
   state.schedule_formdata.documentFile = [];
+  state.schedule_formdata.temDocData = [];
 };
 
 export const SET_AGORA_DETAILS = (state, payload) => {

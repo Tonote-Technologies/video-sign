@@ -7,6 +7,4 @@ export default {
   resourceToolWithAsset: [],
   isOpenModal: false,
   message: null,
-  sessionRecord: [],
-  sessionRecordToday: [],
 };

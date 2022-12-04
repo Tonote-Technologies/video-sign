@@ -14,79 +14,36 @@
       <div class="col-lg-7 col-md-6 mb-1">
         <div class="video-container">
           <div class="notification">
-            <div
-              data-aos="zoom-in"
-              class="my-1"
-              v-if="!camera && display_notification_2"
-            >
+            <div data-aos="zoom-in" class="my-1" v-if="!camera && display_notification_2">
               <span class="d-flex justify-content-center align-items-center">
-                <Icon
-                  icon="carbon:video-off-filled"
-                  class="mx-1"
-                  height="15"
-                  width="15"
-                />
+                <Icon icon="carbon:video-off-filled" class="mx-1" height="15" width="15" />
                 Camera Off
               </span>
             </div>
-            <div
-              data-aos="zoom-in"
-              class="my-1"
-              v-if="camera && display_notification_2"
-            >
+            <div data-aos="zoom-in" class="my-1" v-if="camera && display_notification_2">
               <span class="d-flex justify-content-center align-items-center">
                 <!-- <span class="iconify" data-icon="fa:microphone-slash"></span> -->
-                <Icon
-                  icon="carbon:video-filled"
-                  class="mx-1"
-                  height="15"
-                  width="15"
-                />
+                <Icon icon="carbon:video-filled" class="mx-1" height="15" width="15" />
                 Camera On
               </span>
             </div>
-            <div
-              data-aos="zoom-in"
-              class="my-1"
-              v-if="!microphone && display_notification"
-            >
+            <div data-aos="zoom-in" class="my-1" v-if="!microphone && display_notification">
               <span class="d-flex justify-content-center align-items-center">
-                <Icon
-                  icon="fa:microphone-slash"
-                  class="mx-1"
-                  height="15"
-                  width="15"
-                />
+                <Icon icon="fa:microphone-slash" class="mx-1" height="15" width="15" />
                 Microphone Off
               </span>
             </div>
-            <div
-              data-aos="zoom-in"
-              class="my-1"
-              v-if="microphone & display_notification"
-            >
+            <div data-aos="zoom-in" class="my-1" v-if="microphone & display_notification">
               <span class="d-flex justify-content-center align-items-center">
-                <Icon
-                  icon="fa:microphone"
-                  class="mx-1"
-                  height="15"
-                  width="15"
-                />
+                <Icon icon="fa:microphone" class="mx-1" height="15" width="15" />
                 Microphone On
               </span>
             </div>
           </div>
 
           <video class="shadow video" id="video" playsinline autoplay></video>
-          <div
-            class="icon__container d-flex justify-content-between align-items-end"
-          >
-            <canvas
-              class="shadow-sm hidden__two"
-              id="canvas_two"
-              width="36"
-              height="36"
-            ></canvas>
+          <div class="icon__container d-flex justify-content-between align-items-end">
+            <canvas class="shadow-sm hidden__two" id="canvas_two" width="36" height="36"></canvas>
 
             <div class="d-flex justify-content-start align-items-center">
               <button v-if="!camera" class="icon__off" @click="camera__on">
@@ -96,27 +53,14 @@
                 <Icon icon="carbon:video-filled" height="15" width="15" />
               </button>
 
-              <button
-                v-if="!microphone"
-                class="icon__off"
-                @click="microphone__on"
-              >
+              <button v-if="!microphone" class="icon__off" @click="microphone__on">
                 <Icon icon="fa:microphone-slash" height="15" width="15" />
               </button>
-              <button
-                v-if="microphone"
-                class="icon__on"
-                @click="microphone__off"
-              >
+              <button v-if="microphone" class="icon__on" @click="microphone__off">
                 <Icon icon="fa-solid:microphone" height="15" width="15" />
               </button>
             </div>
-            <canvas
-              class="shadow-sm hidden__two"
-              id="canvas"
-              width="36"
-              height="36"
-            ></canvas>
+            <canvas class="shadow-sm hidden__two" id="canvas" width="36" height="36"></canvas>
           </div>
         </div>
       </div>
@@ -129,13 +73,8 @@
           </div>
 
           <div class="text-center">
-            <button
-              class="btn btn-primary"
-              @click="nav_to_videoSession"
-              :disabled="!camera || !microphone"
-            >
-              Join Call</button
-            ><br />
+            <button class="btn btn-primary" @click="nav_to_videoSession" :disabled="!camera || !microphone">
+              Join Call</button><br />
           </div>
         </div>
         <!-- <div v-else>
@@ -444,14 +383,17 @@ onMounted(() => {
   /* color: #FFF !important; */
   border-color: #003bb3 !important;
 }
+
 .btn {
   /* box-shadow: none; */
   font-weight: 400;
   font-size: 1rem;
 }
+
 .hidden__two {
   visibility: hidden;
 }
+
 .icon__off {
   border-radius: 50%;
   height: 40px;
@@ -463,6 +405,7 @@ onMounted(() => {
   font-size: 1rem;
   color: var(--bs-danger);
 }
+
 .icon__on {
   border-radius: 50%;
   height: 40px;
@@ -474,18 +417,21 @@ onMounted(() => {
   margin: 5px;
   color: var(--bs-gray-600);
 }
+
 .notification {
   position: absolute;
   top: 5px;
   right: 30%;
   left: 30%;
 }
+
 .notification span {
   background: var(--bs-gray-900);
   border-radius: 1rem;
   color: var(--bs-gray-600);
   padding: 0.5rem;
 }
+
 button:disabled,
 button[disabled] {
   background: #f2f2f2 !important;

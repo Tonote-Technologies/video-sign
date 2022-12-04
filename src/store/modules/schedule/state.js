@@ -1,4 +1,7 @@
 export default {
+  sessionRecord: [],
+  sessionRecordToday: [],
+  rescheduleSession: null,
   time_slots: [],
   errors: null,
   // schedule details form data

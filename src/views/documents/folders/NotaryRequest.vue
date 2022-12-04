@@ -22,12 +22,9 @@
               <td>{{ index + 1 }}</td>
               <td>{{ data.title }}</td>
               <td>
-                <span
-                  class="badge rounded-pill me-1"
-                  :class="[
-                    data.status == 'Awaiting' ? 'bg-warning' : 'bg-success',
-                  ]"
-                >
+                <span class="badge rounded-pill me-1" :class="[
+                  data.status == 'Awaiting' ? 'bg-warning' : 'bg-success',
+                ]">
                   {{ data.status }}
                 </span>
               </td>
@@ -36,15 +33,9 @@
               <td>
                 <template v-if="data.status == 'Completed'">
                   <div class="dropdown">
-                    <a
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      ><Icon
-                        icon="oi:ellipses"
-                        :rotate="1"
-                        :verticalFlip="true"
-                      />
+                    <a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <Icon icon="oi:ellipses" :rotate="1" :verticalFlip="true" />
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" style="">
                       <div class="dropdown-item">
@@ -64,10 +55,8 @@
 
 <script setup>
 import { Icon } from "@iconify/vue";
-import { onMounted } from "vue";
 import moment from "moment";
-// import Api from "@/api/Api";
-import { useActions, useGetters } from "vuex-composition-helpers/dist";
+import { useGetters } from "vuex-composition-helpers/dist";
 
 const dateTime = (value) => {
   return moment(value).format("Do MMM YYYY, hh:mm A");
@@ -76,14 +65,8 @@ const dateTime = (value) => {
 const { affidavits } = useGetters({
   affidavits: "schedule/affidavits",
 });
-
-const { getAffidavitRequest } = useActions({
-  getAffidavitRequest: "schedule/getAffidavitRequest",
-});
-
-onMounted(() => {
-  getAffidavitRequest();
-});
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+
+</style>
