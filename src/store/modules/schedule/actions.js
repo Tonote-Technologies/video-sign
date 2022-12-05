@@ -39,7 +39,6 @@ export const rescheduleSession = ({ commit }, sessionData) => {
       const token = store.getters["auth/token"];
       Schedule.showSessionRecord(token)
         .then((res) => {
-          console.log(res.data.data);
           commit("SET_SESSION_RECORD", res.data.data);
         })
 
