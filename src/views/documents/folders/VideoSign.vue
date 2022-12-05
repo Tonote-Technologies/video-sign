@@ -206,6 +206,7 @@
 
             <div class="form-group mb-4">
               <label>Time</label>
+              re: {{ time_slots }}
               <select v-model="reschedule.start_time" class="form-select">
                 <option v-for="(time, index) in time_slots" :key="time + index" :value="time">
                   {{ time }}
@@ -251,10 +252,11 @@ const { token, allSessionRecord, allSessionRecordToday, time_slots } = useGetter
   time_slots: "schedule/time_slots",
 });
 
-const { getSessionRecords, getSessionRecordToday, rescheduleSession, getUserDocument } = useActions({
+const { getSessionRecords, getSessionRecordToday, rescheduleSession, getUserDocument, TimeSlotsAction } = useActions({
   getSessionRecords: "schedule/getSessionRecords",
   getSessionRecordToday: "schedule/getSessionRecordToday",
   rescheduleSession: "schedule/rescheduleSession",
+  TimeSlotsAction: "schedule/TimeSlotsAction",
   getUserDocument: "document/getUserDocument",
 });
 
@@ -293,6 +295,7 @@ const filterDocByNextMeeting = computed(() => {
 onMounted(() => {
   getSessionRecords(token.value);
   getSessionRecordToday(token.value);
+  TimeSlotsAction()
 });
 
 onUpdated(() => {
