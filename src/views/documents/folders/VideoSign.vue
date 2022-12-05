@@ -206,7 +206,6 @@
 
             <div class="form-group mb-4">
               <label>Time</label>
-              re: {{ time_slots }}
               <select v-model="reschedule.start_time" class="form-select">
                 <option v-for="(time, index) in time_slots" :key="time + index" :value="time">
                   {{ time }}
