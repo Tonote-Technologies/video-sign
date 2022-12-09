@@ -201,13 +201,20 @@
           <form @submit.prevent="submitReschedule">
             <div class="form-group mb-2">
               <label>Date</label>
-              <input type="date" v-model="reschedule.date" class="form-control" />
+              <Datepicker @selected="dateSelected" :value="reschedule.date" format="yyyy-MM-dd" :iconHeight="0"
+                :iconWidth="0" :disabled-dates="{
+                  to: new Date(
+                    new Date().getFullYear(),
+                    new Date().getMonth(),
+                    new Date().getDate(),
+                  ),
+                }" />
             </div>
 
             <div class="form-group mb-4">
               <label>Time</label>
               <select v-model="reschedule.start_time" class="form-select">
-                <option v-for="(time, index) in time_slots" :key="time + index" :value="time">
+                <option v-for="(time, index) in displayTimeSlot" :key="time + index" :value="time">
                   {{ time }}
                 </option>
               </select>
@@ -231,6 +238,7 @@ import { ref, onMounted, onUpdated, computed } from "vue";
 import { Icon } from "@iconify/vue";
 import { useActions, useGetters } from "vuex-composition-helpers/dist";
 import ModalComp from "@/components/ModalComp.vue";
+import Datepicker from "vuejs3-datepicker";
 import moment from "moment";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-bs5";
@@ -283,12 +291,53 @@ const getDocument = (params) => {
   getUserDocument(params.id);
 };
 
+const dateSelected = (data) => {
+  reschedule.value.date = moment(data).format("YYYY-MM-DD");
+}
+
+const displayTimeSlot = computed(() => {
+  const convertTimeToSeconds = (params) => {
+    const slittedTimeSlots = params.split(':');
+    return (+slittedTimeSlots[0]) * 3600 + (+slittedTimeSlots[1]) * 60 + (+slittedTimeSlots[2]);
+  }
+
+  const convertSecondsToTime = (seconds) => {
+    if (seconds < 0) return "-" + convertSecondsToTime(-seconds);
+    return new Date(seconds * 1000).toISOString().substr(11, 8);
+  }
+
+  const timeSlots = time_slots.value
+  const isToday = moment(reschedule.value.date).isSame(moment(), 'day');
+
+  const currentDate = new Date();
+  let hr = currentDate.getHours()
+  let min = currentDate.getMinutes()
+  let sec = currentDate.getSeconds()
+
+  if (hr < 10) hr = "0" + hr;
+  if (min < 10) min = "0" + min;
+  if (sec < 10) sec = "0" + sec;
+
+  const time = hr + ":" + min + ":" + sec;
+  const currentTimeInSeconds = convertTimeToSeconds(time);
+
+  const availableTime = timeSlots.filter(slot => {
+    const slotInSeconds = convertTimeToSeconds(slot);
+
+    if (currentTimeInSeconds <= slotInSeconds) {
+      return convertSecondsToTime(slotInSeconds)
+    }
+  })
+
+  return isToday ? availableTime : timeSlots;
+});
+
 const filterDocByVideo = computed(() => {
   return allSessionRecord.value.filter((respond) => respond.entry_point === "Video");
 });
 
 const filterDocByNextMeeting = computed(() => {
-  return allSessionRecordToday.value.filter((res) => res.entry_point === "Video" && res.immediate == false);
+  return allSessionRecordToday.value.filter((res) => res.entry_point === "Video" && res.immediate == false && res.status != 'Completed');
 });
 
 onMounted(() => {
@@ -319,6 +368,15 @@ onUpdated(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style>
+.vuejs3-datepicker {
+  display: block;
+}
 
+.vuejs3-datepicker__value {
+  width: 100% !important;
+  min-width: 200px;
+  padding: 0.571rem 1rem !important;
+  border: 1px solid #d8d6de !important;
+}
 </style>

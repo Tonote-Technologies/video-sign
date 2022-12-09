@@ -37,10 +37,12 @@ export const rescheduleSession = ({ commit }, sessionData) => {
   Schedule.RescheduleVirtualSession(sessionData)
     .then((response) => {
       const token = store.getters["auth/token"];
+
       Schedule.showSessionRecord(token)
-        .then((res) => {
-          commit("SET_SESSION_RECORD", res.data.data);
-        })
+        .then((res) => commit("SET_SESSION_RECORD", res.data.data))
+
+      Schedule.showSessionRecordToday(token)
+        .then((response) => commit("SET_SESSION_RECORD_TODAY", response.data))
 
       commit("SET_RESCHEDULE_SESSION", response.data.data);
 
@@ -50,7 +52,6 @@ export const rescheduleSession = ({ commit }, sessionData) => {
       });
     })
     .catch((error) => {
-      console.log(error);
       if (error.response.status == 401 || error.response.status == 404) {
         commit("SET_RESCHEDULE_SESSION", null);
         Vue.$toast.error(`${error.response.data.errors.root}`);
@@ -241,7 +242,6 @@ export const getVideoSignRequest = ({ commit }) => {
     .then((response) => {
 
       commit("FETCH_VIDEO_SIGN_REQUEST", response.data.data);
-      // console.log(response.data.data)
     })
     .catch(() => {
       commit("FETCH_VIDEO_SIGN_REQUEST", null);

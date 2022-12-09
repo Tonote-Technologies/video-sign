@@ -41,35 +41,21 @@
               <!-- mydate  -->
               <div class="col-lg-2 col-md-3 col-4 mt-1">
                 <label class="form-label">Date</label>
-                <Datepicker
-                  v-model="date"
-                  @selected="dateSelected"
-                  required
-                  calendar-button-icon=""
-                  :calendar-button="false"
-                  format="yyyy-MM-dd"
-                  :iconHeight="0"
-                  :iconWidth="0"
-                  :disabled-dates="{
+                <Datepicker v-model="date" @selected="dateSelected" required calendar-button-icon=""
+                  :calendar-button="false" format="yyyy-MM-dd" :iconHeight="0" :iconWidth="0" :disabled-dates="{
                     to: new Date(
                       new Date().getFullYear(),
                       new Date().getMonth(),
                       new Date().getDate(),
                     ),
-                  }"
-                />
+                  }" />
               </div>
 
               <!-- time  -->
               <div class="col-lg-2 col-md-3 col-4 mt-1">
                 <label class="form-label">Time</label>
                 <select v-model="time" class="form-control">
-                  <option
-                    required
-                    v-for="(time, index) in time_slots"
-                    :key="time + index"
-                    :value="time"
-                  >
+                  <option required v-for="(time, index) in time_slots" :key="time + index" :value="time">
                     {{ time }}
                   </option>
                 </select>
@@ -78,16 +64,8 @@
               <!-- country   -->
               <div class="col-lg-2 col-md-3 col-4 mt-1">
                 <label class="form-label">Country</label>
-                <select
-                  class="form-select"
-                  v-model="country_id"
-                  aria-label="select country"
-                >
-                  <option
-                    v-for="country in countries"
-                    :key="country.id"
-                    :value="country.id"
-                  >
+                <select class="form-select" v-model="country_id" aria-label="select country">
+                  <option v-for="country in countries" :key="country.id" :value="country.id">
                     {{ country.name }}
                   </option>
                 </select>
@@ -95,16 +73,8 @@
               <!-- state  -->
               <div class="col-lg-2 col-md-3 col-4 mt-1">
                 <label class="form-label">State</label>
-                <select
-                  class="form-select"
-                  v-model="state_id"
-                  aria-label="select state"
-                >
-                  <option
-                    v-for="state in states"
-                    :key="state.id"
-                    :value="state.id"
-                  >
+                <select class="form-select" v-model="state_id" aria-label="select state">
+                  <option v-for="state in states" :key="state.id" :value="state.id">
                     {{ state.name }}
                   </option>
                 </select>
@@ -112,18 +82,10 @@
 
               <!-- filter button  -->
               <div class="col-lg-2 col-md-3 col-4 mt-1">
-                <button
-                  :disabled="!state_id && !country_id"
-                  @click="FilterNotary"
-                  class="btn btn-primary d-flex"
-                  type="button"
-                >
-                  <span
-                    v-if="loading_filter"
-                    class="spinner-border spinner-border-sm me-1"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
+                <button :disabled="!state_id && !country_id" @click="FilterNotary" class="btn btn-primary d-flex"
+                  type="button">
+                  <span v-if="loading_filter" class="spinner-border spinner-border-sm me-1" role="status"
+                    aria-hidden="true"></span>
                   Filter
                 </button>
               </div>
@@ -136,10 +98,7 @@
 
           <hr />
 
-          <div
-            v-if="loading_filter || reset_loading"
-            class="d-flex justify-content-center align-items-center my-2"
-          >
+          <div v-if="loading_filter || reset_loading" class="d-flex justify-content-center align-items-center my-2">
             <PreLoader />
           </div>
           <div v-else class="table-responsive my-2 shadow">
@@ -153,23 +112,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="notary in notary_list"
-                  :key="notary.id"
-                  :class="
-                    notary.id === selectedNotary &&
-                    'text-primary fw-bolder bg-light border-1'
-                  "
-                >
+                <tr v-for="notary in notary_list" :key="notary.id" :class="
+                  notary.id === selectedNotary &&
+                  'text-primary fw-bolder bg-light border-1'
+                ">
                   <td class="d-flex">
-                    <input
-                      class="form-check-input mx-1"
-                      type="radio"
-                      name="selectNotary"
-                      :id="notary.id"
-                      v-model="selectedNotary"
-                      :value="notary.id"
-                    />
+                    <input class="form-check-input mx-1" type="radio" name="selectNotary" :id="notary.id"
+                      v-model="selectedNotary" :value="notary.id" />
                     <label :for="notary.id">{{ notary.first_name }}</label>
                   </td>
                   <td>
@@ -180,7 +129,7 @@
                   </td>
                   <td>
                     <label class="small" :for="notary.id">{{
-                      notary.state
+                        notary.state
                     }}</label>
                   </td>
                 </tr>
@@ -195,41 +144,20 @@
       <h5 class="fw-bolder">Pick a time slot</h5>
 
       <div class="d-flex align-items-center gap-1 my-2">
-        <button
-          v-if="notary === 'No' || notary === null"
-          @click="switchScheduleType('Immediate')"
-          :class="
-            schedule_type === 'Immediate'
-              ? 'btn btn-outline-primary'
-              : 'btn not__active'
-          "
-          type="button"
-          aria-selected="true"
-        >
-          <Icon
-            v-if="schedule_type === 'Immediate'"
-            icon="eva:checkmark-circle-2-fill"
-            :width="19"
-            :height="19"
-          />
+        <button v-if="notary === 'No' || notary === null" @click="switchScheduleType('Immediate')" :class="
+          schedule_type === 'Immediate'
+            ? 'btn btn-outline-primary'
+            : 'btn not__active'
+        " type="button" aria-selected="true">
+          <Icon v-if="schedule_type === 'Immediate'" icon="eva:checkmark-circle-2-fill" :width="19" :height="19" />
           Immediate
         </button>
-        <button
-          @click="switchScheduleType('Schedule')"
-          :class="
-            schedule_type === 'Schedule'
-              ? 'btn btn-outline-primary'
-              : 'btn not__active'
-          "
-          type="button"
-          aria-selected="true"
-        >
-          <Icon
-            v-if="schedule_type === 'Schedule'"
-            icon="eva:checkmark-circle-2-fill"
-            :width="19"
-            :height="19"
-          />
+        <button @click="switchScheduleType('Schedule')" :class="
+          schedule_type === 'Schedule'
+            ? 'btn btn-outline-primary'
+            : 'btn not__active'
+        " type="button" aria-selected="true">
+          <Icon v-if="schedule_type === 'Schedule'" icon="eva:checkmark-circle-2-fill" :width="19" :height="19" />
           Schedule
         </button>
       </div>
@@ -241,31 +169,21 @@
               <!-- placeholder="Select Date" -->
               <label for="">Date</label>
               <div class="form-group mb-1">
-                <Datepicker
-                  @selected="dateSelected"
-                  :value="date"
-                  format="yyyy-MM-dd"
-                  :iconHeight="0"
-                  :iconWidth="0"
+                <Datepicker @selected="dateSelected" :value="date" format="yyyy-MM-dd" :iconHeight="0" :iconWidth="0"
                   :disabled-dates="{
                     to: new Date(
                       new Date().getFullYear(),
                       new Date().getMonth(),
                       new Date().getDate(),
                     ),
-                  }"
-                />
+                  }" />
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-6">
               <label for="">Time</label>
               <div class="form-group mb-1">
                 <select v-model="time" class="form-control">
-                  <option
-                    v-for="(time, index) in time_slots"
-                    :key="time + index"
-                    :value="time"
-                  >
+                  <option v-for="(time, index) in time_slots" :key="time + index" :value="time">
                     {{ time }}
                   </option>
                 </select>
@@ -280,20 +198,12 @@
       <button class="mx-1 previous__btn" @click="back">
         <Icon icon="eva:arrow-back-outline" />
       </button>
-      <button
-        :disabled="!schedule_type"
-        class="btn btn-primary"
-        @click="proceed"
-      >
+      <button :disabled="!schedule_type" class="btn btn-primary" @click="proceed">
         Proceed
       </button>
     </div>
 
-    <ModalComp
-      :show="openConfirmationModal"
-      :size="'modal-md'"
-      @close="openConfirmationModal = false"
-    >
+    <ModalComp :show="openConfirmationModal" :size="'modal-md'" @close="openConfirmationModal = false">
       <template #header>
         <h4 class="modal-title"></h4>
       </template>
@@ -349,7 +259,40 @@ export default {
       return store.getters["schedule/states"];
     },
     time_slots() {
-      return store.getters["schedule/time_slots"];
+      const convertTimeToSeconds = (params) => {
+        const slittedTimeSlots = params.split(':');
+        return (+slittedTimeSlots[0]) * 3600 + (+slittedTimeSlots[1]) * 60 + (+slittedTimeSlots[2]);
+      }
+
+      const convertSecondsToTime = (seconds) => {
+        if (seconds < 0) return "-" + convertSecondsToTime(-seconds);
+        return new Date(seconds * 1000).toISOString().substr(11, 8);
+      }
+
+      const timeSlots = store.getters["schedule/time_slots"]
+      const isToday = moment(this.date).isSame(moment(), 'day');
+
+      const currentDate = new Date();
+      let hr = currentDate.getHours()
+      let min = currentDate.getMinutes()
+      let sec = currentDate.getSeconds()
+
+      if (hr < 10) hr = "0" + hr;
+      if (min < 10) min = "0" + min;
+      if (sec < 10) sec = "0" + sec;
+
+      const time = hr + ":" + min + ":" + sec;
+      const currentTimeInSeconds = convertTimeToSeconds(time);
+
+      const availableTime = timeSlots.filter(slot => {
+        const slotInSeconds = convertTimeToSeconds(slot);
+
+        if (currentTimeInSeconds <= slotInSeconds) {
+          return convertSecondsToTime(slotInSeconds)
+        }
+      })
+
+      return isToday ? availableTime : timeSlots;
     },
     schedule_formdata() {
       return store.getters["schedule/schedule_formdata"];
@@ -451,17 +394,12 @@ export default {
             store.commit("schedule/CLEAR_SCHEDULE_FORMDATA");
             // this.openConfirmationModal = true;
             if (this.schedule_details.immediate) {
-              // redirect to waiting room
               router.push({
                 name: "document.waiting-page",
                 params: { session_id: this.schedule_details.id },
               });
             } else {
-              // redirect to request page
-              router.push({
-                name: "Document",
-                query: { page: "video-sign" },
-              });
+              router.push({ name: "Document", query: { page: "video-sign" }, });
             }
           },
           (error) => {
@@ -470,13 +408,6 @@ export default {
               timeout: 5000,
               position: "top-right",
             });
-            // if (error.response.status == 422) {
-            //   toast.error(`${error.response.data.data.error}`, {
-            //     timeout: 5000,
-            //     position: "top-right",
-            //   });
-            //   // console.log("The start time field is required when immediate is false.")
-            // }
           },
         );
     },
@@ -501,6 +432,7 @@ export default {
   background: #f5f5f5;
   border-color: #dddddd;
 }
+
 .previous__btn {
   border-radius: 50%;
   border: 1.5px solid grey;
@@ -511,10 +443,12 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .reset__btn {
   padding: 0;
   margin: 5px 0;
 }
+
 .mx-input {
   display: block !important;
   padding: 0.571rem 1rem !important;
@@ -527,11 +461,15 @@ export default {
     box-shadow 0.15s ease-in-out !important;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
 }
+
+.vuejs3-datepicker {
+  display: block;
+}
+
 .vuejs3-datepicker__value {
-  min-width: 100px !important;
-  border-radius: 5px;
-  padding: 7px 0px !important;
-  cursor: pointer;
-  /* width: 50px !important; */
+  width: 100% !important;
+  min-width: 200px;
+  padding: 0.571rem 1rem !important;
+  border: 1px solid #d8d6de !important;
 }
 </style>

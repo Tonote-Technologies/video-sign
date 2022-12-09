@@ -130,7 +130,6 @@ export default {
   },
   methods: {
     proceed(data) {
-      // console.log(data);
       if (typeof data == "boolean") {
         this.completed = data;
       } else {
