@@ -16,7 +16,7 @@
       <div class="bookmark-wrapper d-flex align-items-center">
         <ul class="nav navbar-nav bookmark-icons">
           <li class="nav-item">
-            <a role="button" class="text-primary fw-bold" @click='$router.go(-1)'>
+            <router-link role="button" class="text-primary fw-bold" :to="{ name: 'Document' }">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="feather feather-chevron-left font-medium-4" style="height: 2rem !important">
@@ -24,7 +24,7 @@
               </svg>
               <span class="visually-hidden"></span>
               Back
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
