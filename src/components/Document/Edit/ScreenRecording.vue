@@ -370,15 +370,14 @@ const confirmEdit = () => {
   if (recordStream.length === 0) {
     ScheduleVirtualSessionUpdate(UploadFormData);
     getDocument(userDocument.value.id);
-    route.push({
-      // name: "document.downloadrecording",
-      name: "certificate",
-    });
+    route.push({ name: "certificate" });
   } else {
     shouldStop = true;
     timer = false;
   }
 };
+
+
 
 onMounted(() => {
   // redirectToUserDashboard.value = process.env.VUE_APP_URL_AUTH_LIVE;

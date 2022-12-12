@@ -1,9 +1,21 @@
 <template>
   <div class="content-right border-0">
-    <div @click="$emit('open', (openSide = true))" class="d-none sidebar-toggle d-block d-lg-none ms-1 my-1">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        class="feather feather-menu font-medium-5">
+    <div
+      @click="$emit('open', (openSide = true))"
+      class="d-none sidebar-toggle d-block d-lg-none ms-1 my-1"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-menu font-medium-5"
+      >
         <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -11,8 +23,11 @@
     </div>
 
     <div class="content-body">
-      <div class="body-content-overlay" :class="{ show: dashboard.isOpened }" @click="dashboard.setIsOpened(false)">
-      </div>
+      <div
+        class="body-content-overlay"
+        :class="{ show: dashboard.isOpened }"
+        @click="dashboard.setIsOpened(false)"
+      ></div>
       <div class="email-app-list">
         <div class="email-user-list">
           <!-- <div class="email-user-list ps ps--active-y"> -->
@@ -20,45 +35,29 @@
             <div class="card-body shadow-none p-1">
               <!-- <VideoBox /> -->
 
-              <div class="d-flex justify-content-center position-fixed d-none" style="z-index: 1">
-                <span title="zoom-in" class="
-                    badge
-                    bg-primary
-                    cursor-pointer
-                    custom-box
-                    rounded-circle
-                    zoom
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                  " @click="plus">
+              <div
+                class="d-flex justify-content-center position-fixed d-none"
+                style="z-index: 1"
+              >
+                <span
+                  title="zoom-in"
+                  class="badge bg-primary cursor-pointer custom-box rounded-circle zoom d-flex justify-content-center align-items-center"
+                  @click="plus"
+                >
                   <Icon icon="ep:zoom-in" class="custom-box" />
                 </span>
-                <span title="recycle" class="
-                    badge
-                    bg-primary
-                    cursor-pointer
-                    custom-box
-                    rounded-circle
-                    zoom-out
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                    mx-1
-                  " @click="refresh">
+                <span
+                  title="recycle"
+                  class="badge bg-primary cursor-pointer custom-box rounded-circle zoom-out d-flex justify-content-center align-items-center mx-1"
+                  @click="refresh"
+                >
                   <Icon icon="bi:recycle" class="custom-box" />
                 </span>
-                <span title="zoom-out" class="
-                    badge
-                    bg-primary
-                    cursor-pointer
-                    custom-box
-                    rounded-circle
-                    zoom-init
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                  " @click="minus">
+                <span
+                  title="zoom-out"
+                  class="badge bg-primary cursor-pointer custom-box rounded-circle zoom-init d-flex justify-content-center align-items-center"
+                  @click="minus"
+                >
                   <Icon icon="ep:zoom-out" class="custom-box" />
                 </span>
               </div>
@@ -68,49 +67,86 @@
               <p>Title: {{ userDocument.title }}</p>
               <!-- <p class="mt-2">Title: {{ userDocument.title }}</p> -->
               <div class="target">
-                <div id="mainWrapper" class="mx-auto" style="width: 820px; height: auto">
+                <div
+                  id="mainWrapper"
+                  class="mx-auto"
+                  style="width: 820px; height: auto"
+                >
                   <template v-if="theTools?.length != 0 && documentHeight">
-                    <div v-for="(tool, index) in theTools" :key="index" class="parent"
-                      :style="{ height: documentHeight + 'px' }">
+                    <div
+                      v-for="(tool, index) in theTools"
+                      :key="index"
+                      class="parent"
+                      :style="{ height: documentHeight + 'px' }"
+                    >
                       <template v-if="tool.append_print == null">
                         <template v-if="tool.tool_name == 'Photo'">
-                          <ToolImage @remove="remove" :tool="tool" :owner="{
-                            user: profile,
-                            isOwner: userDocument.is_the_owner_of_document,
-                          }" />
+                          <ToolImage
+                            @remove="remove"
+                            :tool="tool"
+                            :owner="{
+                              user: profile,
+                              isOwner: userDocument.is_the_owner_of_document,
+                            }"
+                          />
                         </template>
                         <template v-else>
-                          <ToolDefault @remove="remove" :tool="tool" :owner="{
-                            user: profile,
-                            isOwner: userDocument.is_the_owner_of_document,
-                          }" />
+                          <ToolDefault
+                            @remove="remove"
+                            :tool="tool"
+                            :owner="{
+                              user: profile,
+                              isOwner: userDocument.is_the_owner_of_document,
+                            }"
+                          />
                         </template>
                       </template>
                       <template v-else>
                         <template v-if="tool.tool_name == 'Textarea'">
-                          <ToolTextArea @remove="remove" :tool="tool" :owner="{
-                            user: profile,
-                            isOwner: userDocument.is_the_owner_of_document,
-                          }" />
+                          <ToolTextArea
+                            @remove="remove"
+                            :tool="tool"
+                            :owner="{
+                              user: profile,
+                              isOwner: userDocument.is_the_owner_of_document,
+                            }"
+                          />
                         </template>
                         <template v-else-if="tool.tool_name == 'Photo'">
-                          <ToolImage @remove="remove" :tool="tool" :owner="{
-                            user: profile,
-                            isOwner: userDocument.is_the_owner_of_document,
-                          }" />
+                          <ToolImage
+                            @remove="remove"
+                            :tool="tool"
+                            :owner="{
+                              user: profile,
+                              isOwner: userDocument.is_the_owner_of_document,
+                            }"
+                          />
                         </template>
                         <template v-else>
-                          <ToolWithCommonAsset @remove="remove" :tool="tool" :owner="{
-                            user: profile,
-                            isOwner: userDocument.is_the_owner_of_document,
-                          }" :print="tool" />
+                          <ToolWithCommonAsset
+                            @remove="remove"
+                            :tool="tool"
+                            :owner="{
+                              user: profile,
+                              isOwner: userDocument.is_the_owner_of_document,
+                            }"
+                            :print="tool"
+                          />
                         </template>
                       </template>
                     </div>
                   </template>
 
-                  <div v-for="(doc, index) in userDocument.documentUploads" :key="index" class="position-relative">
-                    <RenderPage :file="doc.file_url" @click="$emit('docId', doc.id)" @documentHeight="getHeight" />
+                  <div
+                    v-for="(doc, index) in userDocument.documentUploads"
+                    :key="index"
+                    class="position-relative"
+                  >
+                    <RenderPage
+                      :file="doc.file_url"
+                      @click="$emit('docId', doc.id)"
+                      @documentHeight="getHeight"
+                    />
                   </div>
                 </div>
               </div>
@@ -122,7 +158,11 @@
           <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px"></div>
         </div> -->
         <div class="ps__rail-y" style="top: 0px; height: 100px; right: 0px">
-          <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 100px"></div>
+          <div
+            class="ps__thumb-y"
+            tabindex="0"
+            style="top: 0px; height: 100px"
+          ></div>
         </div>
       </div>
     </div>
@@ -137,14 +177,16 @@
     </template>
 
     <template #body>
-      <p class="text-center my-2">
-        Do you really want to leave the session?
-      </p>
+      <p class="text-center my-2">Do you really want to leave the session?</p>
     </template>
 
     <template #footer>
-      <button class="btn btn-sm btn-secondary" @click="leaveRoute(false)">No</button>
-      <button class="btn btn-sm btn-primary" @click="leaveRoute(true)">Yes</button>
+      <button class="btn btn-sm btn-secondary" @click="leaveRoute(false)">
+        No
+      </button>
+      <button class="btn btn-sm btn-primary" @click="leaveRoute(true)">
+        Yes
+      </button>
     </template>
   </ModalComp>
 </template>
@@ -195,7 +237,7 @@ watch(
       theTools.value = check.document.resourceTools;
     }
   },
-  { deep: true }
+  { deep: true },
 );
 
 const getHeight = (event) => {
@@ -223,20 +265,21 @@ function minus() {
   $(".target").css("transform", "scale(" + zoom + ")");
 }
 
-const leaveModal = ref(false)
-const confirmRouteLeave = ref(false)
+const leaveModal = ref(false);
+const confirmRouteLeave = ref(false);
 const leaveRoute = (params) => {
   if (params) {
-    confirmRouteLeave.value = true
-    route.push({ name: 'Document' })
-  } else { leaveModal.value = false }
-}
+    confirmRouteLeave.value = true;
+    route.push({ name: "certificate" });
+  } else {
+    leaveModal.value = false;
+  }
+};
 onBeforeRouteLeave((to, from, next) => {
-  const answer = confirmRouteLeave.value
+  const answer = confirmRouteLeave.value;
 
-  !answer ? leaveModal.value = true : next()
-
-})
+  !answer ? (leaveModal.value = true) : next();
+});
 
 onMounted(() => {
   theTools.value = workingTools.value;
