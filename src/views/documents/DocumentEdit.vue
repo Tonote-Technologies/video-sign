@@ -582,7 +582,7 @@ const updateStamp = () => {
 
 //     const doc = new jsPDF("p", "mm");
 
-//     doc.addImage(canvas, "PNG", 0, position, imgWidth, imgHeight, "", "FAST");
+//    c
 
 //     while (heightLeft >= 0) {
 //       position = heightLeft - imgHeight;
@@ -590,6 +590,14 @@ const updateStamp = () => {
 //       doc.addImage(canvas, "PNG", 0, position, imgWidth, imgHeight, "", "FAST");
 //       heightLeft -= pageHeight;
 //     }
+// if (params == "done") {
+//   const thePDF = "data:application/pdf;base64," + btoa(doc.output());
+//   doneDataUrl.value = thePDF;
+//   if (doneDataUrl.value != "") {
+//     isDoneEdit();
+//   }
+//   return;
+// }
 
 //     // if (params == "done") { return doneDataUrl.value = canvas.toDataURL() }
 

@@ -10,17 +10,7 @@
         {{ domId.split("-")[2] }}
       </h3>
     </div>
-    <!-- <div class="remote__content">
-      <div>
-        <VoiceDot :level="level" :mute="!remote_mic" />
-      </div>
-      <div>
-        <span class="text-primary fw-bold small">{{ domId }} ({{ role }})</span>
-      </div>
-    </div> -->
   </div>
-
-  <!-- <div class="agora-video-player shadow" ref="player" :id="domId"></div> -->
 </template>
 
 <script>
@@ -42,26 +32,9 @@ export default {
           }
         });
       }
-      if (this.localAudio) {
-        this.localAudio.play((err) => {
-          if (err && err.status !== "aborted") {
-            console.warn("trigger autoplay policy");
-          }
-        });
-      }
     });
   },
-  beforeUnmount() {
-    // if (this.localVideo && this.localVideo.isPlaying) {
-    //   this.localVideo.stop();
-    //   this.localAudio.close();
-    // }
-    // if (this.localAudio && this.localAudio.isPlaying) {
-    //   this.localAudio.stop();
-    //   this.localVideo.close();
-    // }
-    // this.$emit("leave-room", this.localVideo);
-  },
+  beforeUnmount() {},
 };
 </script>
 
@@ -72,17 +45,7 @@ export default {
   border-radius: 5px !important;
   position: relative;
   background-color: #2f2f2f;
-  /* height: 100%;
-  width: 100%;
-  border-radius: 5px !important;
-  background-color: #2f2f2f; */
 }
-/* .video-container {
-  border-radius: 5px !important;
-  background-color: #203a49;
-  height: 100%;
-  width: 100%;
-} */
 
 .video-player {
   height: 100%;

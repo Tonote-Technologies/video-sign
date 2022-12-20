@@ -141,7 +141,7 @@ const toast = useToast();
 AgoraRTC.setLogLevel(4);
 const agora = JSON.parse(sessionStorage.getItem("agora"));
 
-const APP_ID = agora.appid; 
+const APP_ID = agora.appid;
 const TOKEN = agora.token;
 const CHANNEL = agora.channelName;
 const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
@@ -259,7 +259,7 @@ const handleUserJoined = async (user, mediaType) => {
   }
   if (mediaType === "video") {
     setTimeout(() => {
-      user.videoTrack.play(`user-${user.uid}`);
+      user.videoTrack.play(`user-${user.uid}`, { fit: "cover", mirror: true });
     }, 5);
   }
 };
