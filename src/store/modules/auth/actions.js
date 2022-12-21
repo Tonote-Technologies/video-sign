@@ -166,7 +166,7 @@ export const verifyUserByPassword = ({ commit }, formData) => {
       return User.show().then((response) => {
         commit("SET_USER_PROFILE", response.data.data);
         router.push({
-          name: "waiting-page",
+          name: "document.waiting-page",
           params: { session_id: formData.session_id },
         });
         toast.success("Welcome to ToNote ", {

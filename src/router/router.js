@@ -199,7 +199,7 @@ const routes = [
       // waiting page
       {
         path: "waiting-page/:session_id",
-        name: "document.waiting-page",
+        name: "document.waiting-page", 
         component: WaitingPage,
         meta: {
           title: "Video Signing Waiting Page | ToNote",
